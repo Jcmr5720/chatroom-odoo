@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_say_hello_world" model="ir.actions.act_window">
+            <field name="name">Hola Mundo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.message</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_text': 'Hola Mundo', 'default_message_type': 'text'}</field>
+        </record>
+    </data>
+</odoo>

@@ -33,7 +33,8 @@
     'depends': [
         'bus',
         'sales_team',
-        'product'
+        'product',
+        'wk_wizard_messages'
     ],
     'data': [
         'data/data.xml',
@@ -68,6 +69,7 @@
         'reports/report_conversation_views.xml',
         'reports/report_agent_answer_time.xml',
         'views/res_config_settings_views.xml',
+        'views/my_custom_hello_views.xml',
         'views/menu.xml',
         'reports/reports.xml',
     ],

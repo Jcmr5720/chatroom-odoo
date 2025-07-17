@@ -13,6 +13,11 @@
                 id="whatsapp_connector_connector_menu"
                 parent="whatsapp_connector_settings_menu"
                 sequence="100"/>
+            <menuitem action="action_say_hello_world"
+                id="whatsapp_connector_hello_world_menu"
+                parent="whatsapp_connector_settings_menu"
+                name="Hola Mundo"
+                sequence="105"/>
             <menuitem action="view_whatsapp_connector_conversation_action"
                 id="whatsapp_connector_conversation_menu"
                 parent="whatsapp_connector_settings_menu"
