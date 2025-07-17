@@ -1,0 +1,162 @@
+.container2-principal {
+    background: linear-gradient(135deg, #eef2f7 0%, #afd3fa 60%, #c2f8ff 100%);
+    padding-top: 0px;
+    width: 100%;
+    overflow-x: auto;
+
+    h2 {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+        font-weight: 900;
+        color: #000000;
+        text-align: center;
+    }
+}
+
+.container2-bloque {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+
+    a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+.container2-item {
+    position: relative;
+    margin-right: -11px;
+    box-shadow: 0 2px 9px rgba(25, 80, 145, 0.09);
+    border-radius: 0;
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.22s, filter 0.16s, outline 0.18s, transform 0.25s;
+    z-index: 1;
+    outline: 1.5px solid #f0f3fb;
+    outline-offset: -2px;
+    background: #fff;
+}
+
+.item-audifonos {
+    width: 263px;
+    height: 332px;
+
+    .container2-itemImg {
+        background: #e0e7ef url('/website_pages_tecnolosys/static/src/img/audifonos_banner.jpg') center / cover no-repeat;
+    }
+}
+
+.item-teclados {
+    width: 235px;
+    height: 361px;
+    margin-bottom: 18px;
+
+    .container2-itemImg {
+        background: #18191e url('/website_pages_tecnolosys/static/src/img/teclado_banner.jpg') center / cover no-repeat;
+    }
+}
+
+.item-mouse {
+    width: 254px;
+    height: 292px;
+    margin-bottom: 10px;
+
+    .container2-itemImg {
+        background: #212325 url('/website_pages_tecnolosys/static/src/img/mouseg_banner.jpg') center / cover no-repeat;
+    }
+}
+
+.item-computadores {
+    width: 269px;
+    height: 348px;
+    margin-bottom: 23px;
+
+    .container2-itemImg {
+        background: #222c36 url('/website_pages_tecnolosys/static/src/img/pcgamer_banner.jpg') center / cover no-repeat;
+    }
+}
+
+.item-pantallas {
+    width: 254px;
+    height: 306px;
+
+    .container2-itemImg {
+        background: #e7e9f5 url('/website_pages_tecnolosys/static/src/img/pantalla_banner.jpg') center / cover no-repeat;
+    }
+}
+
+.item-tarjetas {
+    width: 261px;
+    height: 325px;
+    margin-bottom: 10px;
+
+    .container2-itemImg {
+        background: #0b1926 url('/website_pages_tecnolosys/static/src/img/tvideo_banner.jpg') center / cover no-repeat;
+    }
+}
+
+.container2-item:hover {
+    filter: brightness(1.12) drop-shadow(0 12px 32px rgba(25, 160, 229, 0.16));
+    outline: 2.5px solid #19a0e5;
+    outline-offset: -3.5px;
+    box-shadow: 0 0 0 5px #19a0e52a;
+    transform: translateY(-6px) scale(1.035);
+    z-index: 12;
+}
+
+.container2-item:hover .container2-itemOverlay {
+    background: linear-gradient(0deg, #054e78ee 99%, #19a0e5b6 0%);
+    transition: background 0.19s;
+}
+
+.container2-item:hover .container2-itemImg {
+    filter: brightness(1.03) contrast(1.17) saturate(1.05);
+    transition: filter 0.19s;
+}
+
+.container2-itemImg {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.93) contrast(1.13);
+    transition: filter 0.18s;
+}
+
+.container2-itemOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.09rem 0.53rem 0.5rem 0.65rem;
+    background: rgba(0, 30, 50, 0.80);
+    color: #fff;
+    font-family: "Roboto", Arial, sans-serif;
+    text-align: left;
+    transition: background 0.18s;
+    pointer-events: none;
+
+    span {
+        display: block;
+        font-size: 0.96rem;
+        letter-spacing: 0.01em;
+    }
+
+    strong {
+        display: block;
+        font-size: 1.10rem;
+        color: #19a0e5;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        margin-top: 0.08em;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .container2-principal {
+        display: none !important;
+    }
+}

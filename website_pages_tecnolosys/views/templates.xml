@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="homepage_test" name="Inicio | TECNOLOSYS COLOMBIA">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <t t-call="website_pages_tecnolosys.container_promo" />
+                <t t-call="website_pages_tecnolosys.container1_section" />
+                <t t-call="website_pages_tecnolosys.s_dynamic_snippet_tecnolosys3" />
+                <t t-call="website_pages_tecnolosys.s_dynamic_snippet_tecnolosys5" />
+                <t t-call="website_pages_tecnolosys.container2_section" />
+                <t t-call="website_pages_tecnolosys.s_dynamic_snippet_tecnolosys4" />
+                <t t-call="website_pages_tecnolosys.s_dynamic_snippet_tecnolosys6" />
+                <t t-call="website_pages_tecnolosys.container3_section" />
+                <t t-call="website_pages_tecnolosys.popupmodal_1" />
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="container_promo">
+        <t t-if="promeCodeDatos">
+            <t t-foreach="promeCodeDatos" t-as="promo">
+                <section class="container-promo-code">
+                    <div class="container-promo-code-main">
+                        <div class="container-promo-code-main-container">
+                            <div class="container-promo-code-main-container-line">
+                                <p>
+                                    CÓDIGO DE DESCUENTO EN
+                                    <t t-esc="', '.join(promo['var2'])" />:
+                                    <t t-esc="', '.join(promo['var1'])" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </t>
+        </t>
+    </template>
+</odoo>

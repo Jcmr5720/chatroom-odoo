@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="inject_gtm_into_layout" inherit_id="website.layout">
+        <xpath expr="//t[@t-call-assets='web.assets_frontend']" position="before">
+            <script type="text/javascript">
+                // Google Tag Manager
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id=GTM-5VQRTC8P'+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-5VQRTC8P');
+            </script>
+        </xpath>
+        <xpath expr="//body" position="inside">
+            <noscript>
+                <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VQRTC8P"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+            </noscript>
+        </xpath>
+    </template>
+</odoo>

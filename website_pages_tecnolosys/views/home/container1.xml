@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="container1_section">
+        <section class="container1">
+            <div class="container1-table">
+                <div class="container1-table-card">
+                    <a href="/shop/category/repuestos-baterias-para-portatil-43">
+                        <div class="container1-table-card-img1"></div>
+                    </a>
+                </div>
+                <div class="container1-table-card">
+                    <a href="/shop/category/repuestos-cargadores-para-portatil-44">
+                        <div class="container1-table-card-img2"></div>
+                    </a>
+                </div>
+                <div class="container1-table-card">
+                    <a href="/shop/category/repuestos-pantallas-de-portatil-45">
+                        <div class="container1-table-card-img3"></div>
+                    </a>
+                </div>
+                <div class="container1-table-card">
+                    <a href="/shop/category/repuestos-teclados-de-portatil-46">
+                        <div class="container1-table-card-img4"></div>
+                    </a>
+                </div>
+                <div class="container1-table-card">
+                    <a href="/shop/category/mouse-para-pc-21">
+                        <div class="container1-table-card-img5"></div>
+                    </a>
+                </div>
+            </div>
+            <div class="container1-main">
+                <h2>¡Ofertas de la semana!</h2>
+                <div class="container1-mainImg">
+                    <a href="/shop/category/combo-teclado-mouse-64">
+                        <img src="/website_pages_tecnolosys/static/src/img/principal.gif" />
+                    </a>
+                </div>
+            </div>
+            <div class="container1-menu-hidden">
+                <div class="container1-menu">
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/accesorios-audifonos-18">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg1"></div>
+                                <p>Audifonos</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/teclados-pc-20">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg2"></div>
+                                <p>Teclados</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/bases-para-portatil-63">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg3"></div>
+                                <p>Bases portátil</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/camara-web-19">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg4"></div>
+                                <p>Cámaras</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/microfonos-22">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg5"></div>
+                                <p>Micrófonos</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/pad-mouse-61">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg6"></div>
+                                <p>Pad-Mouse</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/componentes-de-pc-fuentes-11">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg7"></div>
+                                <p>Fuentes</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/componentes-de-pc-memora-ram-12">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg8"></div>
+                                <p>Memorias RAM</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/componentes-de-pc-refrigeracion-4">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg9"></div>
+                                <p>Refrigeración</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/tarjetas-de-video-13">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg10"></div>
+                                <p>Tarjetas de vídeo</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/computadores-portatiles-56">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg11"></div>
+                                <p>Portátiles</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="container1-menu_card">
+                        <a href="/shop/category/computadores-cpu-49">
+                            <div class="container1-menu_card_ct">
+                                <div class="container1-menu_card_ct_svg12"></div>
+                                <p>CPU</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="height: 100px; overflow: hidden;">
+                <svg viewBox="0 0 500 150" preserveAspectRatio="none"
+                    style="height: 100%; width: 100%;">
+                    <path
+                        d="M0.00,49.98 C149.99,150.00 358.07,33.06 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+                        style="stroke: none; fill: #ffffff;">
+                    </path>
+                </svg>
+            </div>
+        </section>
+    </template>
+</odoo>

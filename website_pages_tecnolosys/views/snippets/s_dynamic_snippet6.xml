@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_dynamic_snippet_tecnolosys6">
+        <section class="s-mainSection container-products4">
+            <div class="s-mainContainer container-products4-main">
+                <div class="s-mainContainerTitle container-products4-main-title">
+                    <h2 class="container-products4-main-title-t10">¡Nuestro TOP!</h2>
+                </div>
+                <div class="s-mainContainerSnippet container-products4-main-snippet">
+                    <div class="s-productContainer container-products4-main-snippet-container">
+                        <t t-if="snippetSearchProductosId6">
+                            <t t-foreach="snippetSearchProductosId6" t-as="s_prd_6">
+                                <div class="s-productCard container-products4-main-snippet-container-card">
+                                    <t t-set="descuento" t-value="0" />
+                                    <t t-foreach="snippetDatos6" t-as="desc_data">
+                                        <t t-if="desc_data['v_1'] == s_prd_6.id">
+                                            <t t-set="descuento" t-value="desc_data['v_2']" />
+                                        </t>
+                                    </t>
+
+                                    <div class="s-sale" t-if="descuento > 0">
+                                        <t t-esc="int(descuento)" />% </div>
+
+                                    <a t-att-href="s_prd_6.website_url">
+                                        <img
+                                            t-att-src="'/web/image/product.template/' + str(s_prd_6.id) + '/image_1920'" />
+                                        <h4>
+                                            <t t-esc="s_prd_6.name" />
+                                        </h4>
+                                        <h5>Referencia: <t t-esc="s_prd_6.default_code" /></h5>
+
+                                        <t t-if="descuento > 0">
+                                            <p class="s-precioAntes"> $<t
+                                                    t-esc="'{:,.0f}'.format(s_prd_6.list_price).replace(',', '.')" />
+                                            </p>
+                                            <p class="s-precioAhora"> $<t t-set="precio_final"
+                                                    t-value="s_prd_6.list_price * (1 - descuento / 100.0)" />
+                        <t
+                                                    t-esc="'{:,.0f}'.format(precio_final).replace(',', '.')" />
+                                            </p>
+                                        </t>
+                                        <t t-else="">
+                                            <p class="s-precioAhora"> $<t
+                                                    t-esc="'{:,.0f}'.format(s_prd_6.list_price).replace(',', '.')" />
+                                            </p>
+                                        </t>
+                                    </a>
+                                </div>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <p>NO HAY PRODUCTOS</p>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

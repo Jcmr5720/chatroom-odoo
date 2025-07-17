@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_dynamic_snippet_tecnolosys4">
+        <section class="s-mainSection container-products2">
+            <div class="container-products2-main">
+                <t t-if="snippetProductoDia != None">
+                    <div class="s-mainContainerSnippet container-products2-main-daysale">
+                        <h2>¡Oferta del día!</h2>
+                        <t t-if="snippetProductoDia">
+                            <div class="s-productCard container-products2-main-daysale-card">
+                                <t t-if="snippetProductoDiaSearch.discount">
+                                    <div class="s-sale"><t
+                                            t-esc="int(snippetProductoDiaSearch.discount)" />% </div>
+                                </t>
+                                <a t-att-href="snippetProductoDia.website_url">
+                                    <img
+                                        t-att-src="'/web/image/product.template/' + str(snippetProductoDia.id) + '/image_1920'" />
+                                    <h4>
+                                        <t t-esc="snippetProductoDia.name" />
+                                    </h4>
+                                    <h5>Referencia: <t t-esc="snippetProductoDia.default_code" />
+                                    </h5>
+                                    <p
+                                        class="s-precioAntes">$ <t
+                                            t-esc="'{:,.0f}'.format(snippetProductoDia.list_price).replace(',', '.')" />
+                                    </p>
+                                    <p class="s-precioAhora">$<t
+                                            t-set="snippetPrecioSale"
+                                            t-value="int(snippetProductoDia.list_price)-
+                                        (int(snippetProductoDia.list_price)*(snippetProductoDiaSearch.discount/100))" />
+                                       <t
+                                            t-esc="'{:,.0f}'.format(snippetPrecioSale).replace(',', '.')" />
+                                    </p>
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+                <t t-else=""></t>
+                <div class="s-mainContainerSnippet container-products2-main-news">
+                    <h2>Novedades</h2>
+                    <div class="container-products2-main-news-container">
+                        <t t-foreach="snippetSearchProductosId4_2" t-as="s_product_4_2">
+                            <div class="s-productCard container-products2-main-news-container-card">
+                                <a t-att-href="s_product_4_2.website_url">
+                                    <img
+                                        t-att-src="'/web/image/product.template/' + str(s_product_4_2.id) + '/image_1920'" />
+                                    <h4>
+                                        <t t-esc="s_product_4_2.name" />
+                                    </h4>
+                                    <h5>Referencia: <t t-esc="s_product_4_2.default_code" />
+                                    </h5>
+                                    <p class="s-precioAhora">$ <t
+                                            t-esc="'{:,.0f}'.format(s_product_4_2.list_price).replace(',', '.')" />
+                                    </p>
+                                </a>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

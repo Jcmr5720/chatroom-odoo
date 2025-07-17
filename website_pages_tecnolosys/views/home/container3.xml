@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="container3_section">
+        <section class="container3" >
+            <!--
+        <section 
+            class="container3 o_animate o_anim_fade_in o_animate_both_scroll o_anim_from_bottom" 
+            data-scroll-zone-start="0" data-scroll-zone-end="100" 
+            style="wanim-intensity: 100; animation-duration: 0.5s; animation-delay: 0s;">
+            -->
+            <div class="container3-main ">
+                <h2>Medios de pago</h2>
+                <div class="container3-main-img">
+                    <a href="/">
+                        <img src="/website_pages_tecnolosys/static/src/img/pagos.png" />
+                    </a>
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

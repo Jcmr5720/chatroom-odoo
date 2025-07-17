@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_pqr_table" name="Tabla PQRS">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <t t-call="portal.portal_searchbar">
+                    <t t-set="title">PQRS del usuario</t>
+                    <t t-set="searchbar_sortings" t-value="searchbar_sortings" />
+                    <t t-set="sortby" t-value="sortby" />
+                    <t t-set="default_url" t-value="'/my/pqrs'" />
+                </t>
+                <a href="/my/pqrs/crear" class="btn btn-primary mt-3 mb-3">Crear nueva PQR</a>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Fecha de creación</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="pqrDates" t-as="item">
+                                <tr>
+                                    <td>
+                                        <t t-esc="item['varName']" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="item['varWriteOn']" />
+                                    </td>
+                                    <td>
+                                        <a t-attf-href="{{ item['varUrl'] }}" class="btn btn-sm btn-primary">Ver detalles</a>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <a href="/my/home" class="btn btn-secondary mt-3">Volver</a>
+            </div>
+        </t>
+    </template>
+</odoo>

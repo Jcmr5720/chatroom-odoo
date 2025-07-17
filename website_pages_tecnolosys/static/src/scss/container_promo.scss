@@ -1,0 +1,41 @@
+.container-promo-code-main {
+    width: 100%;
+    background: rgb(126, 1, 1);
+}
+
+.container-promo-code-main-container-line {
+    padding: 0.5rem 0;
+    text-align: center;
+
+    p {
+        font-size: 1rem;
+        margin: 0;
+        font-weight: 600;
+        color: white;
+        opacity: 0;
+        animation: efectpromo 2s infinite;
+
+        @keyframes efectpromo {
+            0% {
+                opacity: 0;
+            }
+
+            50%{
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container-promo-code-main-container-line {
+        p {
+            font-size: 0.7rem;
+        }
+    }
+}

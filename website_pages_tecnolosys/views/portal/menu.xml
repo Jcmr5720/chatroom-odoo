@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+ 
+
+    <record id="web_pqr_category_action" model="ir.actions.act_window">
+        <field name="name">Categoría</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">web.pqr.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="website_pages_tecnolosys.web_pqr_category_view_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"> Categorías PQRS </p>
+        </field>
+    </record>
+
+    <record id="web_pqr_motivo_action" model="ir.actions.act_window">
+        <field name="name">Motivo</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">web.pqr.motivo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="website_pages_tecnolosys.web_pqr_category_view_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"> Categorías PQRS </p>
+        </field>
+    </record>
+  
+
+    
+    <menuitem id="web_pqr_menu" name="PQR" parent="sale.sale_menu_root" sequence="120"/>
+    
+    <menuitem id="web_pqrs"
+                action="web_pqr_action"
+                parent="website_pages_tecnolosys.web_pqr_menu"
+                name="PQR"  sequence="0"/>
+    
+    <menuitem id="web_pqrs_category"
+                action="web_pqr_category_action"
+                parent="website_pages_tecnolosys.web_pqr_menu"
+                name="Categorías"  sequence="1"/>
+    
+    <menuitem id="web_pqrs_motivo"
+                action="web_pqr_motivo_action"
+                parent="website_pages_tecnolosys.web_pqr_menu"
+                name="Motivos"  sequence="1"/>
+    
+</odoo>

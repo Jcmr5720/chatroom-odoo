@@ -1,0 +1,297 @@
+.container1 {
+    background: linear-gradient(135deg, #0b223e 0%, #185494 60%, #24c6dc 100%);
+    padding-top: 24px;
+    padding-bottom: 0px;
+}
+
+.container1-table {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 32px;
+    padding: 0 1.5rem;
+
+    .container1-table-card {
+        width: 300px;
+        height: 200px;
+        padding: 0px;
+        margin: 0px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        transition: all 0.5s ease;
+
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 5px 10px 5px rgba(204, 0, 255, 0.5);
+            z-index: 10;
+        }
+    }
+
+    [class^="container1-table-card-img"] {
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        min-height: 0;
+        border-radius: 12px;
+        transition: transform 0.5s ease;
+    }
+
+    .container1-table-card-img1 {
+        background: #185494 url('/website_pages_tecnolosys/static/src/img/iconhome_bat.png') center / cover no-repeat;
+    }
+
+
+    .container1-table-card-img2 {
+        background: #185494 url('/website_pages_tecnolosys/static/src/img/iconhome_car.png') center / cover no-repeat;
+    }
+
+
+    .container1-table-card-img3 {
+        background: #185494 url('/website_pages_tecnolosys/static/src/img/iconhome_pant.png') center / cover no-repeat;
+    }
+
+
+    .container1-table-card-img4 {
+        background: #185494 url('/website_pages_tecnolosys/static/src/img/iconhome_tecl.png') center / cover no-repeat;
+    }
+
+
+    .container1-table-card-img5 {
+        background: #185494 url('/website_pages_tecnolosys/static/src/img/iconhome_mou.png') center / cover no-repeat;
+    }
+
+}
+
+.container1-main {
+    display: none;
+    flex-direction: column;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 32px;
+
+    h2 {
+        color: orange;
+        font-size: 1.8rem;
+        margin: 0;
+        text-align: center;
+    }
+
+    .container1-mainImg {
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}
+
+.container1-menu-hidden {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.container1-menu {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 3rem;
+    padding: 0 1rem;
+    justify-content: center;
+    justify-items: center;
+    margin-bottom: 24px;
+
+    .container1-menu_card {
+        padding: 0;
+        margin: 0;
+        width: 11rem;
+        min-width: 7rem;
+        height: 100px;
+
+        a {
+            text-decoration: none;
+        }
+
+        .container1-menu_card_ct {
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            background: rgba(33, 65, 110, 0.38);
+            border: 1.5px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 8px 24px rgba(15, 40, 80, 0.12);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.25s, box-shadow 0.25s, transform 0.3s ease;
+
+            p {
+                color: #eaf6ff;
+                margin: 0;
+                font-weight: bold;
+                font-size: 1rem;
+            }
+
+            [class^="container1-menu_card_ct_svg"] {
+                width: 70px;
+                min-width: 0;
+                height: 70px;
+                min-height: 0;
+                transition: transform 0.3s ease;
+            }
+        }
+
+        .container1-menu_card_ct_svg1 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_aud.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg2 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_tec2.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg3 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_bas.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg4 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_cam.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg5 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_mic.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg6 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_pad2.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg7 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_fue2.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg8 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_ram2.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg9 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_ref2.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg10 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_gra2.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg11 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_lap2.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct_svg12 {
+            background: url('/website_pages_tecnolosys/static/src/img/svg/icon_w_cpu2.svg') center / contain no-repeat;
+        }
+
+        .container1-menu_card_ct:hover {
+            background: orange;
+            box-shadow: 0 12px 36px rgba(210, 140, 10, 0.22);
+            transform: scale(1.05);
+
+            p {
+                color: #0b223e;
+            }
+        }
+
+        .container1-menu_card_ct:hover [class^="container1-menu_card_ct_svg"] {
+            filter: invert(1);
+            transform: scale(1.15) rotate(-4deg);
+        }
+
+    }
+}
+
+@media screen and (max-width: 1600px) {
+
+    .container1-table-card:nth-child(5) {
+        display: none;
+    }
+
+    .container1-menu {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .container1-menu_card:nth-child(n+9) {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+
+    .container1-table {
+        padding: 1rem 2rem !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, 300px) !important;
+        gap: 5rem !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    .container1-table {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 2rem !important;
+    }
+
+    .container1-table-card:nth-child(4) {
+        display: none;
+    }
+
+    .container1-table-card {
+
+        &:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+    .container1-main {
+        display: none;
+    }
+
+    .container1-menu {
+        grid-template-columns: repeat(2, 1fr) !important;
+        padding: 1rem 2rem !important;
+        gap: 1.5rem !important;
+    }
+
+    .container1-menu_card_ct {
+        padding: 0.5rem !important;
+        transition: none !important;
+    }
+
+    .container1-menu_card:nth-child(n+7) {
+        display: none;
+    }
+
+    [class^="container1-menu_card_ct_svg"] {
+        width: 40px !important;
+        height: 40px !important;
+        transition: none !important;
+    }
+
+    .container1-menu_card_ct:hover {
+        box-shadow: none !important;
+        transform: none !important;
+    }
+
+    .container1-menu_card_ct:hover [class^="container1-menu_card_ct_svg"] {
+        transform: none !important;
+    }
+}

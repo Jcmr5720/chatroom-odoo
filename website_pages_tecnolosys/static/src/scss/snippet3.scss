@@ -1,0 +1,101 @@
+.container-products3-main {
+
+    .container-products3-main-time {
+
+        #container-products3-main-time-h2 {
+
+            @keyframes snippetAnimationTimer {
+                0% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.02);
+                }
+
+                100% {
+                    transform: scale(1);
+                }
+
+            }
+
+            font-size: 2.5rem;
+            color: #ffffff;
+            font-weight: 900;
+            animation: snippetAnimationTimer 1s infinite;
+        }
+    }
+
+    .container-products3-main-snippet {
+
+        .container-products3-main-snippet-container {
+            display: grid;
+            flex-wrap: wrap;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .container-products3-main-snippet-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 0.7rem !important;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container-products3-main-snippet-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.7rem !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .container-products3-main-time {
+
+        h2 {
+            font-size: 1.5rem !important;
+        }
+
+        #container-products3-main-time-h2 {
+            font-size: 2rem !important;
+        }
+    }
+
+    .container-products3-main-snippet {
+        max-width: 100%;
+        min-width: 0;
+        padding: 0 3rem !important;
+
+        h2 {
+            font-size: 1.5rem;
+        }
+    }
+
+    .container-products3-main-snippet-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem !important;
+    }
+
+    .container-products3-main-snippet-container-card {
+        width: 100% !important;
+
+        h4 {
+            font-size: 0.85rem;
+            min-height: 3.6em;
+            margin-bottom: 0.4rem;
+        }
+
+        h5 {
+            font-size: 0.7rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+    }
+}

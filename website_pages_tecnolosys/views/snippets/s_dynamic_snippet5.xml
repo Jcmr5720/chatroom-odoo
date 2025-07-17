@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_dynamic_snippet_tecnolosys5">
+        <t t-if="snippetFlashSale != None">
+            <section class="s-mainSection container-products3">
+                <div class="s-mainContainer container-products3-main">
+                    <input type="hidden" id="flashDate" t-att-value="snippetFlashDate" />
+                    <div class="s-mainContainerTitle container-products3-main-time">
+                        <h2>¡Ofertas relampago!</h2>
+                        <h2 id="container-products3-main-time-h2"></h2>
+                    </div>
+                    <div class="s-mainContainerSnippet container-products3-main-snippet">
+                        <div class="s-productContainer container-products3-main-snippet-container">
+                            <t t-if="snippetFlashSale">
+                                <t t-foreach="snippetFlashSale" t-as="s_pages_5">
+                                    <div class="s-productCard container-products3-main-snippet-container-card">
+                                        <div class="s-sale">
+                                            <t t-esc="int(snippetFlashSaleSearch.discount)" />% </div>
+                                        <a t-att-href="s_pages_5.website_url">
+                                            <img
+                                                t-att-src="'/web/image/product.template/' + str(s_pages_5.id) + '/image_1920'" />
+                                            <h4>
+                                                <t t-esc="s_pages_5.name" />
+                                            </h4>
+                                            <h5>Referencia: <t t-esc="s_pages_5.default_code" />
+                                            </h5>
+                                            <t t-if="snippetFlashSaleSearch.discount > 0">
+                                                <p
+                                                    class="s-precioAntes">$ <t
+                                                        t-esc="'{:,.0f}'.format(s_pages_5.list_price).replace(',', '.')" />
+                                                </p>
+                                                <p class="s-precioAhora">$<t
+                                                        t-set="snippetPrecioSale"
+                                                        t-value="int(s_pages_5.list_price) * (1 - (snippetFlashSaleSearch.discount/100))" />
+                                       <t
+                                                        t-esc="'{:,.0f}'.format(snippetPrecioSale).replace(',', '.')" />
+                                                </p>
+                                            </t>
+                                            <t t-else="">
+                                                <p class="s-precioAhora">$<t
+                                                        t-esc="'{:,.0f}'.format(s_pages_5.list_price).replace(',', '.')" />
+                                                </p>
+                                            </t>
+                                        </a>
+                                    </div>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <p>NO HAY PRODUCTOS</p>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+</odoo>
