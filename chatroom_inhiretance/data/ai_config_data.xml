@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="chatroom_ai_config_transcription" model="acrux.chat.ai.config">
+            <field name="name">Transcription</field>
+            <field name="operation_id" ref="whatsapp_connector.data_config_operation_transcription"/>
+            <field name="ai_model_id" ref="whatsapp_connector.data_config_operation_transcription_1"/>
+            <field name="auth_token">X</field>
+            <field name="temperature">0.2</field>
+            <field name="sequence">99</field>
+        </record>
+    </data>
+</odoo>
