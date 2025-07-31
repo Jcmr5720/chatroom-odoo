@@ -22,9 +22,9 @@
                         <t t-call="chatroom.MessageContent" />
                         <div>
                             <t t-if="canTranscribe and !props.noAction">
-                                <a href="#" class="mt-2 fw-bold o_acrux_transcribe" title="Transcribe to text"
+                                <a href="#" class="mt-2 o_acrux_transcribe" title="Transcribe to text"
                                     t-on-click="onTranscribe">
-                                    Transcribe
+                                    <i class="fa fa-magic" />
                                 </a>
                             </t>
                             <span t-if="message.transcription" t-out="message.transcription"
