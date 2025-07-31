@@ -60,9 +60,9 @@
             <t t-set-slot="tab_google_search" isVisible="true"
                 name="'tab_google_search'" icon="'fa fa-search'"
                 id="'tab_google_search'" title="titles.tab_google_search">
-                <div class="o_GoogleSearchTab" style="padding:8px;">
+                <div class="o_GoogleSearchTab">
                     <form action="https://www.google.com/search" method="get" target="_blank" class="o_GoogleSearchForm">
-                        <input type="text" name="q" placeholder="Search Google..." required="required" style="width:80%;"/>
+                        <input type="text" name="q" placeholder="Search Google..." required="required"/>
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
