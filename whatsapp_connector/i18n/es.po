@@ -369,8 +369,6 @@ msgstr "Interfaz IA Test"
 msgid "AI Manual Queries"
 msgstr "IA Consultas Manuales"
 
-msgid "Google Search"
-msgstr "Busqueda Google"
 
 #. module: whatsapp_connector
 #: model:ir.model.fields,field_description:whatsapp_connector.field_acrux_chat_ai_config__ai_model_id
