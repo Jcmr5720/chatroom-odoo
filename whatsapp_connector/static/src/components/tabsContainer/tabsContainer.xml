@@ -60,8 +60,11 @@
             <t t-set-slot="tab_google_search" isVisible="true"
                 name="'tab_google_search'" icon="'fa fa-search'"
                 id="'tab_google_search'" title="titles.tab_google_search">
-                <div class="o_GoogleSearchTab" style="height:100%;">
-                    <iframe src="https://www.google.com/" style="border:none;width:100%;height:100%;"></iframe>
+                <div class="o_GoogleSearchTab" style="padding:8px;">
+                    <form action="https://www.google.com/search" method="get" target="_blank" class="o_GoogleSearchForm">
+                        <input type="text" name="q" placeholder="Search Google..." required="required" style="width:80%;"/>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
                 </div>
             </t>
         </NotebookChat>
