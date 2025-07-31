@@ -80,7 +80,6 @@
             'whatsapp_connector/static/src/components/*/*.xml',
 
             'whatsapp_connector/static/src/jslib/chatroom.js',
-            'whatsapp_connector/static/src/google_search.js',
         ],
         'web.assets_backend_prod_only': [
             'whatsapp_connector/static/src/services/chatroomNotification.js',
