@@ -62,7 +62,11 @@
                 id="'tab_google_search'" title="titles.tab_google_search">
                 <div class="o_GoogleSearchTab" style="padding:8px;">
                     <form action="https://www.google.com/search" method="get" target="_blank" class="o_GoogleSearchForm">
-                        <input type="text" name="q" placeholder="Search Google..." required="required" style="width:80%;"/>
+                        <input type="text" name="q" placeholder="Search Google..." required="required" style="width:60%;"/>
+                        <select name="search_type" class="mx-1">
+                            <option value="web">Web</option>
+                            <option value="images">Images</option>
+                        </select>
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
