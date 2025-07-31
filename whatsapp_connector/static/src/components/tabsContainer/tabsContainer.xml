@@ -57,6 +57,13 @@
                     <t t-call="chatroom.TabWithConversation" />
                 </div>
             </t>
+            <t t-set-slot="tab_google_search" isVisible="true"
+                name="'tab_google_search'" icon="'fa fa-search'"
+                id="'tab_google_search'" title="titles.tab_google_search">
+                <div class="o_GoogleSearchTab" style="height:100%;">
+                    <iframe src="https://www.google.com/" style="border:none;width:100%;height:100%;"></iframe>
+                </div>
+            </t>
         </NotebookChat>
     </t>
 
