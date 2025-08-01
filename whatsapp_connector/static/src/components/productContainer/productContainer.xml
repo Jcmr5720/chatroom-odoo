@@ -5,6 +5,20 @@
         <div class="acrux_ProductContainer" t-attf-class="{{ props.className }}">
             <ChatroomHeader className="'o_product_header'">
                 <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
+                <div class="o_product_filters">
+                    <label class="me-2">
+                        <input type="checkbox" t-on-change="toggleAvailable"/>
+                        <span> Stock &gt; 0</span>
+                    </label>
+                    <label class="me-2">
+                        <input type="checkbox" t-on-change="toggleSearchName"/>
+                        <span> Nombre</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" t-on-change="toggleSearchDescription"/>
+                        <span> Descripción</span>
+                    </label>
+                </div>
             </ChatroomHeader>
             <div class="o_acrux_chat_product_items">
                 <t t-foreach="state.products" t-as="product" t-key="product.id">
