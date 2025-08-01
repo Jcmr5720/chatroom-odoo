@@ -35,3 +35,17 @@ class AcruxChatConversation(models.Model):
             elif stock_filter == 'negative':
                 products = [p for p in products if p.get('quantity_total', 0) < 0]
         return products
+
+    @api.model
+    def get_config_parameters(self):
+        """Return ChatRoom configuration values.
+
+        This method is expected by the JS client when loading the chatroom.
+        Some deployments were missing it, which raised an AttributeError during
+        startup.  By defining it here we ensure the required configuration is
+        always available.
+        """
+        Config = self.env['ir.config_parameter'].sudo()
+        return {
+            'chatroom_tab_orientation': Config.get_param('chatroom_tab_orientation')
+        }
