@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="chatroom.Product">
+        <t t-jquery="ul li:last-child" t-operation="after">
+            <li class="small">SAN = <t t-esc="props.product.qtySan"/> UND</li>
+            <li class="small">TUL = <t t-esc="props.product.qtyTul"/> UND</li>
+            <li class="small">NEU = <t t-esc="props.product.qtyNeu"/> UND</li>
+        </t>
+    </t>
+</templates>

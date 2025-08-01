@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="chatroom.ProductContainer">
+        <t t-jquery="select[t-on-change='changeStockFilter'] option[value='positive']" t-operation="replace">
+            <option value="positive">Unidades mayor a 0</option>
+        </t>
+        <t t-jquery="select[t-on-change='changeStockFilter'] option[value='negative']" t-operation="replace">
+            <option value="negative">Unidades menor a 0</option>
+        </t>
+    </t>
+</templates>
