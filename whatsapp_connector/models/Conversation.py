@@ -708,10 +708,25 @@ class AcruxChatConversation(models.Model):
         ProductProduct = self.env['product.product']
         domain = [('sale_ok', '=', True)]
         if string:
-            if string.startswith('/cat '):
-                domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
+            s = string.strip()
+            if s.startswith('/cat '):
+                domain.append(('categ_id.complete_name', 'ilike', s[5:].strip()))
+            elif s.startswith('/name '):
+                domain.append(('product_tmpl_id.name', 'ilike', s[6:].strip()))
+            elif s.startswith('/desc '):
+                val = s[6:].strip()
+                domain += ['|', ('product_tmpl_id.description', 'ilike', val),
+                           ('product_tmpl_id.description_sale', 'ilike', val)]
+            elif s.startswith('/stock'):
+                domain.append(('qty_available', '>', 0))
+            elif s.startswith('[') and s.endswith(']'):
+                try:
+                    from odoo.tools.safe_eval import safe_eval
+                    domain += safe_eval(s)
+                except Exception:
+                    domain += ['|', ('name', 'ilike', s), ('default_code', 'ilike', s)]
             else:
-                domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
+                domain += ['|', ('name', 'ilike', s), ('default_code', 'ilike', s)]
         fields_search = self.get_product_fields_to_read()
         out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=32)
         return out
