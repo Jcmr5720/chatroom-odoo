@@ -8,6 +8,10 @@
     'depends': ['whatsapp_connector'],
     'data': [
         'data/ai_config_data.xml',
+        'views/include_template.xml',
+    ],
+    'qweb': [
+        'static/src/xml/tabs_extension.xml',
     ],
     'installable': True,
     'application': False,

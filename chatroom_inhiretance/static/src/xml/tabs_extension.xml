@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="chatroom.TabsContainer">
+        <t t-jquery="t[t-set-slot='tab_google_search']" t-operation="after">
+            <t t-set-slot="tab_calculator" isVisible="true"
+                name="'tab_calculator'" icon="'fa fa-calculator'"
+                id="'tab_calculator'" title="'Calculator'">
+                <div class="o_CalculatorTab o_Calculator">
+                    <div class="o_CalcDisplay mb-2">
+                        <input type="text" readonly="readonly" placeholder="0" class="form-control"/>
+                    </div>
+                    <div class="o_CalcButtons">
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="7">7</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="8">8</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="9">9</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="/">/</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="4">4</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="5">5</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="6">6</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="*">*</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="1">1</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="2">2</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="3">3</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="-">-</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="0">0</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value=".">.</button>
+                        <button type="button" class="btn btn-success o_CalcButton" data-value="=">=</button>
+                        <button type="button" class="btn btn-light o_CalcButton" data-value="+">+</button>
+                        <button type="button" class="btn btn-danger o_CalcButton" data-value="C">C</button>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </t>
+</templates>

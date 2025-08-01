@@ -1,0 +1,15 @@
+// Calculator tab styles
+.o_CalculatorTab {
+    max-width: 260px;
+    padding: 8px;
+}
+
+.o_CalcDisplay input {
+    text-align: right;
+}
+
+.o_CalcButtons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}

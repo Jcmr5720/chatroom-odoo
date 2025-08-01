@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="chatroom inheritance assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/chatroom_inhiretance/static/src/js/calculator.js"/>
+            <script type="text/javascript" src="/chatroom_inhiretance/static/src/js/tabs_patch.js"/>
+            <link rel="stylesheet" href="/chatroom_inhiretance/static/src/scss/calculator.scss" type="text/scss"/>
+        </xpath>
+    </template>
+</odoo>
