@@ -44,11 +44,11 @@
                         t-on-click="mobileNavigate.bind(this, 'lastSide')" />
                     <div class="d-lg-flex d-none">
                       <button class="btn left-btn" t-att-title="'Reduce'"
-                        t-on-click="changeTabSize" t-if="chatroomTabSize &lt; 2">
+                        t-on-click="changeTabSize" t-if="chatroomTabSize &gt; -2">
                           <i class="fa fa-arrow-left" />
                       </button>
                       <button class="btn right-btn" t-att-title="'Increase'"
-                          t-on-click="changeTabSize" t-if="chatroomTabSize &gt; -2">
+                          t-on-click="changeTabSize" t-if="chatroomTabSize &lt; 2">
                           <i class="fa fa-arrow-right" />
                       </button>
                     </div>

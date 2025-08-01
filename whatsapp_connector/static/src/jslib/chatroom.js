@@ -984,8 +984,8 @@ odoo.define('@42ffbf6224f23aacdf6b9a6289d4e396904ef6225cba7443d521319d2137e2b6',
     }
     changeTabSize(event) {
       const target = event.currentTarget || event.target
-      const increaseRight = target.className.includes('right')
-      const size = this.state.chatroomTabSize + (increaseRight ? -2 : 2)
+      const reducing = target.className.includes('left')
+      const size = this.state.chatroomTabSize + (reducing ? -2 : 2)
       this.chatroomTabSize = size
     }
     set chatroomTabSize(size) {
