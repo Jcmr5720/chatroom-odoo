@@ -34,6 +34,9 @@
                             </span>
                             <span t-else="" />
                         </li>
+                        <li>SAN = <t t-esc="props.product.qtySAN"/> UND</li>
+                        <li>TUL = <t t-esc="props.product.qtyTUL"/> UND</li>
+                        <li>NEU = <t t-esc="props.product.qtyNEU"/> UND</li>
                     </ul>
                 </div>
             </div>
