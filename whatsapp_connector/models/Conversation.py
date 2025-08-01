@@ -697,21 +697,40 @@ class AcruxChatConversation(models.Model):
 
     @api.model
     def get_product_fields_to_read(self):
-        fields_search = ['id', 'display_name', 'lst_price', 'uom_id',
-                         'write_date', 'product_tmpl_id', 'name', 'type', 'default_code']
+        fields_search = [
+            'id', 'display_name', 'lst_price', 'uom_id',
+            'write_date', 'product_tmpl_id', 'name', 'type', 'default_code',
+        ]
+        if 'qty_available' in self.env['product.product']._fields:
+            fields_search.append('qty_available')
         if 'quantity_total' in self.env['product.product']._fields:
             fields_search.append('quantity_total')
         return fields_search
 
     @api.model
-    def search_product(self, string):
+    def search_product(self, string, filters=None):
         ProductProduct = self.env['product.product']
         domain = [('sale_ok', '=', True)]
+        filters = filters or {}
+        if filters.get('available') and 'qty_available' in ProductProduct._fields:
+            domain.append(('qty_available', '>', 0))
         if string:
             if string.startswith('/cat '):
                 domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
             else:
-                domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
+                search_name = filters.get('search_name')
+                search_description = filters.get('search_description')
+                if search_name or search_description:
+                    if search_name and search_description:
+                        domain += ['|',
+                                   ('product_tmpl_id.name', 'ilike', string),
+                                   ('product_tmpl_id.description', 'ilike', string)]
+                    elif search_name:
+                        domain.append(('product_tmpl_id.name', 'ilike', string))
+                    else:
+                        domain.append(('product_tmpl_id.description', 'ilike', string))
+                else:
+                    domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
         fields_search = self.get_product_fields_to_read()
         out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=32)
         return out

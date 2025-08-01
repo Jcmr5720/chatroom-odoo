@@ -1456,7 +1456,13 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
   const ProductContainer = __exports.ProductContainer = class ProductContainer extends Component {
     setup() {
       super.setup()
-      this.env; this.state = useState({ products: [] })
+      this.env; this.state = useState({
+        products: [],
+        available: false,
+        searchName: false,
+        searchDescription: false,
+      })
+      this.lastSearch = ''
       this.props
       this.placeHolder = this.env._t('Search')
       this.env.chatBus.on('productSearch', this, this.searchProduct)
@@ -1470,9 +1476,32 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
     }
     async searchProduct({ search }) {
       let val = search || ''
+      this.lastSearch = val
       const { orm } = this.env.services
-      const result = await orm.call(this.env.chatModel, 'search_product', [val.trim()], { context: this.env.context })
+      const filters = {
+        available: this.state.available,
+        search_name: this.state.searchName,
+        search_description: this.state.searchDescription,
+      }
+      const result = await orm.call(
+        this.env.chatModel,
+        'search_product',
+        [val.trim(), filters],
+        { context: this.env.context },
+      )
       this.state.products = result.map(product => new ProductModel(this, product))
+    }
+    toggleAvailable() {
+      this.state.available = !this.state.available
+      this.searchProduct({ search: this.lastSearch })
+    }
+    toggleSearchName() {
+      this.state.searchName = !this.state.searchName
+      this.searchProduct({ search: this.lastSearch })
+    }
+    toggleSearchDescription() {
+      this.state.searchDescription = !this.state.searchDescription
+      this.searchProduct({ search: this.lastSearch })
     }
     async productOption({ product, event }) { if (this.props.selectedConversation) { if (this.props.selectedConversation.isMine()) { await this.doProductOption({ product, event }) } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('Yoy are not writing in this conversation.') }) } } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('You must select a conversation.') }) } }
     async doProductOption({ product }) {
