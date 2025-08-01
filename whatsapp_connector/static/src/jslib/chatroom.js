@@ -1458,8 +1458,8 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
       super.setup()
       this.env; this.state = useState({
         products: [],
-        available: false,
-        searchName: false,
+        stockFilter: 'positive',
+        searchName: true,
         searchDescription: false,
       })
       this.lastSearch = ''
@@ -1479,7 +1479,7 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
       this.lastSearch = val
       const { orm } = this.env.services
       const filters = {
-        available: this.state.available,
+        stock_filter: this.state.stockFilter,
         search_name: this.state.searchName,
         search_description: this.state.searchDescription,
       }
@@ -1491,8 +1491,8 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
       )
       this.state.products = result.map(product => new ProductModel(this, product))
     }
-    toggleAvailable() {
-      this.state.available = !this.state.available
+    changeStockFilter(event) {
+      this.state.stockFilter = event.target.value
       this.searchProduct({ search: this.lastSearch })
     }
     toggleSearchName() {
