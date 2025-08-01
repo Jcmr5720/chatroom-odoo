@@ -114,7 +114,12 @@ class AcruxChatDefaultAnswer(models.Model):
                 'button_ids', 'chat_list_id']
 
     @api.model
-    def get_for_chatroom(self):
+    def get_for_chatroom(self, ids=None):
+        """Return default answers for chatroom.
+
+        The ``ids`` argument is ignored but kept for RPC compatibility,
+        as some clients send an empty list when calling this method.
+        """
         out = self.search_read([('show_in_chatroom', '=', True)], self.get_fields_to_read())
         ButtonModel = self.env['acrux.chat.default.message.button']
         button_fields = self.env['acrux.chat.button.base'].fields_get().keys()
