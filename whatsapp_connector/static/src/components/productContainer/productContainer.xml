@@ -6,16 +6,17 @@
             <ChatroomHeader className="'o_product_header'">
                 <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
                 <div class="o_product_filters">
+                    <select class="form-select form-select-sm me-2" t-on-change="changeStockFilter">
+                        <option value="positive">Stock &gt; 0</option>
+                        <option value="negative">Stock &lt; 0</option>
+                        <option value="all">Todos</option>
+                    </select>
                     <label class="me-2">
-                        <input type="checkbox" t-on-change="toggleAvailable"/>
-                        <span> Stock &gt; 0</span>
-                    </label>
-                    <label class="me-2">
-                        <input type="checkbox" t-on-change="toggleSearchName"/>
+                        <input type="checkbox" t-on-change="toggleSearchName" t-att-checked="state.searchName"/>
                         <span> Nombre</span>
                     </label>
                     <label>
-                        <input type="checkbox" t-on-change="toggleSearchDescription"/>
+                        <input type="checkbox" t-on-change="toggleSearchDescription" t-att-checked="state.searchDescription"/>
                         <span> Descripción</span>
                     </label>
                 </div>

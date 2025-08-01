@@ -712,8 +712,14 @@ class AcruxChatConversation(models.Model):
         ProductProduct = self.env['product.product']
         domain = [('sale_ok', '=', True)]
         filters = filters or {}
-        if filters.get('available') and 'qty_available' in ProductProduct._fields:
-            domain.append(('qty_available', '>', 0))
+        stock_filter = filters.get('stock_filter')
+        if not stock_filter and filters.get('available'):
+            stock_filter = 'positive'
+        if stock_filter and 'qty_available' in ProductProduct._fields:
+            if stock_filter == 'positive':
+                domain.append(('qty_available', '>', 0))
+            elif stock_filter == 'negative':
+                domain.append(('qty_available', '<', 0))
         if string:
             if string.startswith('/cat '):
                 domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
