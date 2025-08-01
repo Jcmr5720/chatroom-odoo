@@ -708,10 +708,37 @@ class AcruxChatConversation(models.Model):
         ProductProduct = self.env['product.product']
         domain = [('sale_ok', '=', True)]
         if string:
-            if string.startswith('/cat '):
-                domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
-            else:
-                domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
+            from odoo.osv import expression
+            import shlex
+
+            tokens = shlex.split(string)
+            for token in tokens:
+                if token.startswith('/cat:') or token.startswith('cat:'):
+                    val = token.split(':', 1)[1]
+                    domain = expression.AND([domain, [('categ_id.complete_name', 'ilike', val)]] )
+                elif token.startswith('/name:') or token.startswith('name:'):
+                    val = token.split(':', 1)[1]
+                    domain = expression.AND([domain, [('product_tmpl_id.name', 'ilike', val)]] )
+                elif token.startswith('/desc:') or token.startswith('desc:'):
+                    val = token.split(':', 1)[1]
+                    domain = expression.AND([domain, ['|',
+                                                   ('product_tmpl_id.description', 'ilike', val),
+                                                   ('product_tmpl_id.description_sale', 'ilike', val)]])
+                elif token.startswith('/stock') or token == 'stock':
+                    domain = expression.AND([domain, [('qty_available', '>', 0)]] )
+                elif token.startswith('[') and token.endswith(']'):
+                    try:
+                        from odoo.tools.safe_eval import safe_eval
+                        custom_domain = safe_eval(token)
+                        domain = expression.AND([domain, custom_domain])
+                    except Exception:
+                        domain = expression.AND([domain, ['|',
+                                                         ('name', 'ilike', token),
+                                                         ('default_code', 'ilike', token)]])
+                else:
+                    domain = expression.AND([domain, ['|',
+                                                     ('name', 'ilike', token),
+                                                     ('default_code', 'ilike', token)]])
         fields_search = self.get_product_fields_to_read()
         out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=32)
         return out
