@@ -4,7 +4,7 @@
     <t t-name="chatroom.ProductContainer" owl="1">
         <div class="acrux_ProductContainer" t-attf-class="{{ props.className }}">
             <ChatroomHeader className="'o_product_header'">
-                <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
+                <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" showQtyFilter="True" showSearchType="True" />
             </ChatroomHeader>
             <div class="o_acrux_chat_product_items">
                 <t t-foreach="state.products" t-as="product" t-key="product.id">

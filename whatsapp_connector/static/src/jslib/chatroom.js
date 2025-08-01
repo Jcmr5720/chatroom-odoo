@@ -595,11 +595,19 @@ odoo.define('@b776165a95553fcc22eda64dc09cd1e02d2db4727ab51cf648290a373a0251c6',
     setup() {
       super.setup()
       this.env; this.props; this.inputSearch = useRef('inputSearch')
+      if (this.props.showSearchType) this.selectSearchType = useRef('selectSearchType')
+      if (this.props.showQtyFilter) this.checkQty = useRef('checkQty')
     }
-    onKeypress(event) { if (event.which === 13) { this.env.chatBus.trigger(this.props.eventName, { search: this.inputSearch.el.value }) } }
-    onSearch() { this.env.chatBus.trigger(this.props.eventName, { search: this.inputSearch.el.value }) }
+    onKeypress(event) { if (event.which === 13) { this.triggerSearch() } }
+    onSearch() { this.triggerSearch() }
+    triggerSearch() {
+      const data = { search: this.inputSearch.el.value }
+      if (this.props.showSearchType) data.searchField = this.selectSearchType.el.value
+      if (this.props.showQtyFilter) data.qtyAvailable = this.checkQty.el.checked
+      this.env.chatBus.trigger(this.props.eventName, data)
+    }
   }
-  Object.assign(ChatSearch, { template: 'chatroom.ChatSearch', props: { placeHolder: { type: String, optional: true }, eventName: String, }, defaultProps: { placeHolder: '', } })
+  Object.assign(ChatSearch, { template: 'chatroom.ChatSearch', props: { placeHolder: { type: String, optional: true }, eventName: String, showQtyFilter: { type: Boolean, optional: true }, showSearchType: { type: Boolean, optional: true } }, defaultProps: { placeHolder: '', showQtyFilter: false, showSearchType: false } })
   return __exports;
 });;
 odoo.define('@42ffbf6224f23aacdf6b9a6289d4e396904ef6225cba7443d521319d2137e2b6', async function (require) {
@@ -1468,10 +1476,10 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
       this.env.chatBus.off('productSearch', this)
       this.env.chatBus.off('productOption', this)
     }
-    async searchProduct({ search }) {
+    async searchProduct({ search, qtyAvailable, searchField }) {
       let val = search || ''
       const { orm } = this.env.services
-      const result = await orm.call(this.env.chatModel, 'search_product', [val.trim()], { context: this.env.context })
+      const result = await orm.call(this.env.chatModel, 'search_product', [val.trim(), searchField || 'name', qtyAvailable || false], { context: this.env.context })
       this.state.products = result.map(product => new ProductModel(this, product))
     }
     async productOption({ product, event }) { if (this.props.selectedConversation) { if (this.props.selectedConversation.isMine()) { await this.doProductOption({ product, event }) } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('Yoy are not writing in this conversation.') }) } } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('You must select a conversation.') }) } }

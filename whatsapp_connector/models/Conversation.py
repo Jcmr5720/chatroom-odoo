@@ -704,14 +704,23 @@ class AcruxChatConversation(models.Model):
         return fields_search
 
     @api.model
-    def search_product(self, string):
+    def search_product(self, string, search_field='name', qty_available=False):
         ProductProduct = self.env['product.product']
+        ProductTemplate = self.env['product.template']
         domain = [('sale_ok', '=', True)]
+        if qty_available:
+            domain.append(('qty_available', '>', 0))
         if string:
             if string.startswith('/cat '):
                 domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
             else:
-                domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
+                if search_field == 'description':
+                    tmpl_ids = ProductTemplate.search(['|', ('description', 'ilike', string),
+                                                       ('description_sale', 'ilike', string)]).ids
+                    if tmpl_ids:
+                        domain.append(('product_tmpl_id', 'in', tmpl_ids))
+                else:
+                    domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
         fields_search = self.get_product_fields_to_read()
         out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=32)
         return out
