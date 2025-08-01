@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<odoo>
+     <record model="ir.ui.view" id="view_product_template_kanban_inhirited">
+            <field name="name">product.kanban.inhirited.unidades</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_kanban_stock_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='product_lst_price']/following-sibling::div[1]" position="replace">
+                    <div t-if="record.show_on_hand_qty_status_button.raw_value" style="font-weight: bold">Unidades en SAndresito: <field name="quantity_in_location" /> <field name="uom_id"/></div>
+                    <div t-if="record.show_on_hand_qty_status_button.raw_value" style="font-weight: bold">Unidades en Tulipanes: <field name="quantity_in_tulipanes" /> <field name="uom_id"/></div>
+                    <div t-if="record.categ_id and ( 'usado' in record.categ_id.name.lower() or 'segunda' in record.categ_id.name.lower() )" style="font-weight: bold">Unidades en Neutrón: <field name="quantity_in_neutron" /> <field name="uom_id"/></div>
+                </xpath>
+            </field>
+        </record>
+
+
+      <record id="view_product_template_tree_inhirited_meli" model="ir.ui.view">
+        <field name="name">product.template.tree.inhirited.meli</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='virtual_available']" position="after">
+                    <field  name="quantity_in_location" decoration-bf="1"   optional="show" />
+                    <field  name="quantity_in_tulipanes" decoration-bf="1"   optional="show" />
+                    <field  name="quantity_in_neutron" decoration-bf="1"   optional="hide" />
+                </xpath>
+        </field>
+    </record>
+
+    
+
+     <record id="view_product_template_tree_inhirited_stock" model="ir.ui.view">
+        <field name="name">product.template.tree.hide.attributes</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='qty_available']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='virtual_available']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+        </field>
+    </record>
+</odoo>
