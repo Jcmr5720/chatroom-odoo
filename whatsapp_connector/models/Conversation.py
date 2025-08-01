@@ -705,6 +705,12 @@ class AcruxChatConversation(models.Model):
             fields_search.append('qty_available')
         if 'quantity_total' in self.env['product.product']._fields:
             fields_search.append('quantity_total')
+        if 'quantity_in_location' in self.env['product.product']._fields:
+            fields_search.append('quantity_in_location')
+        if 'quantity_in_tulipanes' in self.env['product.product']._fields:
+            fields_search.append('quantity_in_tulipanes')
+        if 'quantity_in_neutron' in self.env['product.product']._fields:
+            fields_search.append('quantity_in_neutron')
         return fields_search
 
     @api.model

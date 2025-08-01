@@ -2360,6 +2360,9 @@ odoo.define('@a57f7a72eb29be2e68a9675edd680394d67e2ecd8df85dc2c38e83822c8551e8',
       this.defaultCode = ''
       this.qtyAvailable = 0.0
       this.qtyAvailabletecno = 0.0
+      this.qtySAN = 0.0
+      this.qtyTUL = 0.0
+      this.qtyNEU = 0.0
       this.showProductText = true
       this.uniqueHashImage = ''
       this.showOptions = true
@@ -2381,6 +2384,9 @@ odoo.define('@a57f7a72eb29be2e68a9675edd680394d67e2ecd8df85dc2c38e83822c8551e8',
       if ('default_code' in base) { this.defaultCode = base.default_code }
       if ('qty_available' in base) { this.qtyAvailable = base.qty_available }
       if ('quantity_total' in base) { this.qtyAvailabletecno = base.quantity_total }
+      if ('quantity_in_location' in base) { this.qtySAN = base.quantity_in_location }
+      if ('quantity_in_tulipanes' in base) { this.qtyTUL = base.quantity_in_tulipanes }
+      if ('quantity_in_neutron' in base) { this.qtyNEU = base.quantity_in_neutron }
       if ('show_product_text' in base) { this.showProductText = base.show_product_text }
       if ('show_options' in base) { this.showOptions = base.show_options }
     }
