@@ -691,7 +691,7 @@ odoo.define('@42ffbf6224f23aacdf6b9a6289d4e396904ef6225cba7443d521319d2137e2b6',
       document.removeEventListener('visibilitychange', this.visibilityChangeBind)
     }
     async setServerConversation() {
-      const convIds = await this.env.services.orm.call(this.env.chatModel, 'search_active_conversation', [], { context: this.env.context })
+      const convIds = await this.env.services.orm.call(this.env.chatModel, 'search_active_conversation', [[]], { context: this.env.context })
       let data = await Promise.all(convIds.map(convId => this.env.conversationBuildDict(convId, 0, 0)))
       await this.upsertConversation(data.filter(item => item.length).map(item => item[0]))
       this.state.conversations.forEach(conv => { conv.ready = false })
