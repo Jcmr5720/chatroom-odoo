@@ -691,7 +691,7 @@ odoo.define('@42ffbf6224f23aacdf6b9a6289d4e396904ef6225cba7443d521319d2137e2b6',
       document.removeEventListener('visibilitychange', this.visibilityChangeBind)
     }
     async setServerConversation() {
-      const convIds = await this.env.services.orm.call(this.env.chatModel, 'search_active_conversation', [], { context: this.env.context })
+      const convIds = await this.env.services.orm.call(this.env.chatModel, 'search_active_conversation', [[]], { context: this.env.context })
       let data = await Promise.all(convIds.map(convId => this.env.conversationBuildDict(convId, 0, 0)))
       await this.upsertConversation(data.filter(item => item.length).map(item => item[0]))
       this.state.conversations.forEach(conv => { conv.ready = false })
@@ -709,7 +709,7 @@ odoo.define('@42ffbf6224f23aacdf6b9a6289d4e396904ef6225cba7443d521319d2137e2b6',
     }
     async getDefaultAnswers() {
       const { orm } = this.env.services
-      const data = await orm.call('acrux.chat.default.answer', 'get_for_chatroom', [], { context: this.env.context })
+      const data = await orm.call('acrux.chat.default.answer', 'get_for_chatroom', [[]], { context: this.env.context })
       return data.map(answer => new DefaultAnswerModel(this, answer))
     }
     async getConversationInfoView() {
@@ -752,7 +752,7 @@ odoo.define('@42ffbf6224f23aacdf6b9a6289d4e396904ef6225cba7443d521319d2137e2b6',
     }
     get userPreferenceFild() { return ['id', 'chatroom_signing_active', 'acrux_chat_active'] }
     async getUserPreference() {
-      const data = await Promise.all([this.env.services.orm.read('res.users', [this.env.services.user.userId], this.userPreferenceFild, { context: this.env.context }), this.env.services.orm.call(this.env.chatModel, 'get_config_parameters', [], { context: this.env.context }).then(params => {
+      const data = await Promise.all([this.env.services.orm.read('res.users', [this.env.services.user.userId], this.userPreferenceFild, { context: this.env.context }), this.env.services.orm.call(this.env.chatModel, 'get_config_parameters', [[]], { context: this.env.context }).then(params => {
         if (params.chatroom_batch_process) {
           this.batchSize = parseInt(params.chatroom_batch_process)
           delete params.chatroom_batch_process;
