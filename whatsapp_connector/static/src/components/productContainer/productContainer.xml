@@ -7,8 +7,8 @@
                 <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
                 <div class="o_product_filters">
                     <select class="form-select form-select-sm me-2" t-on-change="changeStockFilter">
-                        <option value="positive">Stock &gt; 0</option>
-                        <option value="negative">Stock &lt; 0</option>
+                        <option value="positive">Unidades disponibles</option>
+                        <option value="negative">Sin unidades</option>
                         <option value="all">Todos</option>
                     </select>
                     <label class="me-2">

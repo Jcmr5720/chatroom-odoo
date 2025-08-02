@@ -719,7 +719,7 @@ class AcruxChatConversation(models.Model):
             if stock_filter == 'positive':
                 domain.append(('qty_available', '>', 0))
             elif stock_filter == 'negative':
-                domain.append(('qty_available', '<', 0))
+                domain.append(('qty_available', '<=', 0))
         if string:
             if string.startswith('/cat '):
                 domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
