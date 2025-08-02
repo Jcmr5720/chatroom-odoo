@@ -6,13 +6,15 @@
     .o_product_header {
         background: transparent;
         border: 0;
-        .o_product_filters {
-            display: flex;
-            align-items: center;
-            margin-left: 8px;
-            label {
-                margin-bottom: 0;
-            }
+    }
+
+    .o_product_filters {
+        display: flex;
+        align-items: center;
+        margin-left: 8px;
+        margin-top: 4px;
+        label {
+            margin-bottom: 0;
         }
     }
 

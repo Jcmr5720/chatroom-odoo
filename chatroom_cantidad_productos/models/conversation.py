@@ -14,8 +14,14 @@ class AcruxChatConversation(models.Model):
             'id', 'display_name', 'lst_price', 'uom_id',
             'write_date', 'product_tmpl_id', 'name', 'type', 'default_code'
         ]
-        if 'quantity_in_location' in self.env['product.product']._fields:
+        if 'quantity_total' in self.env['product.product']._fields:
             fields_search.append('quantity_total')
+        if 'quantity_in_location' in self.env['product.product']._fields:
+            fields_search.append('quantity_in_location')
+        if 'quantity_in_tulipanes' in self.env['product.product']._fields:
+            fields_search.append('quantity_in_tulipanes')
+        if 'quantity_in_neutron' in self.env['product.product']._fields:
+            fields_search.append('quantity_in_neutron')
         return fields_search
 
     @api.model
