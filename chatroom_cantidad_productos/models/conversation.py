@@ -10,12 +10,13 @@ class AcruxChatConversation(models.Model):
 
     @api.model
     def get_product_fields_to_read(self):
-        fields_search = [
-            'id', 'display_name', 'lst_price', 'uom_id',
-            'write_date', 'product_tmpl_id', 'name', 'type', 'default_code'
-        ]
+        fields_search = super().get_product_fields_to_read()
         if 'quantity_in_location' in self.env['product.product']._fields:
-            fields_search.append('quantity_total')
+            fields_search.extend([
+                'quantity_in_location',
+                'quantity_in_tulipanes',
+                'quantity_in_neutron',
+            ])
         return fields_search
 
     @api.model
