@@ -28,11 +28,17 @@
                                 </t>
                             </t>
                         </li>
-                        <li class="small" t-if="props.product.type == 'product'">
-                            <span>SAN = <t t-esc="props.product.qtyLocation"/> UND</span>
-                            <span style="margin-left: 8px;">TUL = <t t-esc="props.product.qtyTulipanes"/> UND</span>
-                            <span style="margin-left: 8px;">NEU = <t t-esc="props.product.qtyNeutron"/> UND</span>
-                        </li>
+                        <t t-if="props.product.type == 'product'">
+                            <li class="small">
+                                <span><strong>SAN</strong> <strong><t t-esc="props.product.qtyLocation"/></strong> UND</span>
+                            </li>
+                            <li class="small">
+                                <span><strong>TUL</strong> <strong><t t-esc="props.product.qtyTulipanes"/></strong> UND</span>
+                            </li>
+                            <li class="small">
+                                <span><strong>NEU</strong> <strong><t t-esc="props.product.qtyNeutron"/></strong> UND</span>
+                            </li>
+                        </t>
                         <li class="small" style="color: #858585;">
                             <span t-if="props.product.defaultCode">
                                 <t t-esc="props.product.defaultCode"/>
