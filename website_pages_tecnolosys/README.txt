@@ -22,3 +22,4 @@ Consideraciones
   para que se muestren correctamente en los carruseles.
 
   1basd2255qwea33
+* Actualizacion ok
