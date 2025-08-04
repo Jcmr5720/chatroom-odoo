@@ -101,6 +101,7 @@
                                     <li><code>conversation_id</code>: Current Conversation.</li>
                                     <li><code>env</code>: Odoo Environment.</li>
                                 </ul>
+                                <p>No se permiten sentencias <code>import</code>; se utiliza solo para completar el texto del mensaje.</p>
                             </div>
                         </page>
                         <page string="Validate Numbers" name="validate_options"

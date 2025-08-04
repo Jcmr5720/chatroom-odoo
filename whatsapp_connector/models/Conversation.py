@@ -10,6 +10,7 @@ from odoo.tools import formatLang
 from odoo.tools.safe_eval import safe_eval
 from urllib.parse import urljoin
 from datetime import datetime, date
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from ..tools import DEFAULT_IMAGE_URL
 from ..tools import get_image_url, get_image_from_url, get_binary_attach
 from ..tools import date_timedelta, date2sure_write
@@ -475,6 +476,21 @@ class AcruxChatConversation(models.Model):
             text = local_dict.get('text', '') or ''
         return (text or '').strip()
 
+    def send_product_button_message(self, product_id, product_url):
+        """Send product info with a button linking to product_url."""
+        self.ensure_one()
+        bot = getattr(self.connector_id, 'get_bot', None)
+        if callable(bot):
+            bot = bot()
+        else:
+            bot = getattr(self.connector_id, 'bot', None)
+        if not bot:
+            return
+        keyboard = [[InlineKeyboardButton("Ver en página", url=product_url)]]
+        caption = self.get_product_caption(product_id)
+        bot.send_message(chat_id=self.get_chat_id(), text=caption,
+                         reply_markup=InlineKeyboardMarkup(keyboard))
+
     def send_message(self, msg_data, check_access=True):
         self.ensure_one()
         if check_access:
@@ -518,6 +534,9 @@ class AcruxChatConversation(models.Model):
                 'ttype': 'text',
             }
         self.send_message_bus_release(msg_data, self.status)
+        product_url = self.get_product_url(product_id)
+        if product_url:
+            self.send_product_button_message(product_id, product_url)
 
     def split_complex_message(self, msg_data):
         return msg_data

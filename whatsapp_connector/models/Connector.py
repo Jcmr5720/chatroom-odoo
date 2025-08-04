@@ -91,7 +91,8 @@ class AcruxChatConnector(models.Model):
     product_caption = fields.Text('Caption',
                                   default='list_price = format_price(product_id.lst_price)\n'
                                           'text = "%s\\n%s / %s" % (product_id.display_name.strip(), '
-                                          'list_price, product_id.uom_id.name[:4])\n')
+                                          'list_price, product_id.uom_id.name[:4])\n',
+                                  help='Python snippet to build the message text. Imports are not allowed.')
     chatroom_hide_branding = fields.Boolean('Hide Branding', compute='_compute_hide_branding', store=False)
     allowed_lang_ids = fields.Many2many('res.lang', string='Langs', context={'active_test': False},
                                         help='Langs that can be translated in this connector.')
