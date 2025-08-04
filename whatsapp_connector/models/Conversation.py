@@ -8,6 +8,7 @@ from odoo.osv import expression
 from odoo.exceptions import ValidationError
 from odoo.tools import formatLang
 from odoo.tools.safe_eval import safe_eval
+from urllib.parse import urljoin
 from datetime import datetime, date
 from ..tools import DEFAULT_IMAGE_URL
 from ..tools import get_image_url, get_image_from_url, get_binary_attach
@@ -446,6 +447,13 @@ class AcruxChatConversation(models.Model):
                     conv_id._sendone(conv_id.get_channel_to_many(), 'update_conversation', data_to_send)
         return message_id
 
+    def get_product_url(self, product_id):
+        """Return absolute website URL for given product."""
+        self.ensure_one()
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url', '')
+        url = product_id.website_url or product_id.product_tmpl_id.website_url or ''
+        return urljoin(base_url, url)
+
     def get_product_caption(self, product_id):
         self.ensure_one()
         if not product_id:
@@ -460,6 +468,7 @@ class AcruxChatConversation(models.Model):
                 'format_price': format_price,
                 'product_id': product_id,
                 'conversation_id': self,
+                'product_url': self.get_product_url(product_id),
                 'text': ''
             }
             safe_eval(product_caption, locals_dict=local_dict, mode='exec', nocopy=True)
