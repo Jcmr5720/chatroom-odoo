@@ -5,26 +5,26 @@
         <div class="acrux_ProductContainer" t-attf-class="{{ props.className }}">
             <ChatroomHeader className="'o_product_header'">
                 <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
-                <div class="o_product_filters">
-                    <select class="form-select form-select-sm me-2" t-on-change="changeStockFilter">
-                        <option value="positive">Unidades disponibles</option>
-                        <option value="negative">Sin unidades</option>
-                        <option value="all">Todos</option>
-                    </select>
-                    <label class="me-2">
-                        <input type="checkbox" t-on-change="toggleSearchName" t-att-checked="state.searchName"/>
-                        <span> Nombre</span>
-                    </label>
-                    <label class="me-2">
-                        <input type="checkbox" t-on-change="toggleSearchDefaultCode" t-att-checked="state.searchDefaultCode"/>
-                        <span> Referencia</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" t-on-change="toggleSearchDescription" t-att-checked="state.searchDescription"/>
-                        <span> Descripción</span>
-                    </label>
-                </div>
             </ChatroomHeader>
+            <div class="o_product_filters">
+                <select class="form-select form-select-sm me-2" t-on-change="changeStockFilter">
+                    <option value="positive">Unidades disponibles</option>
+                    <option value="negative">Sin unidades</option>
+                    <option value="all">Todos</option>
+                </select>
+                <label class="me-2">
+                    <input type="checkbox" t-on-change="toggleSearchName" t-att-checked="state.searchName"/>
+                    <span> Nombre</span>
+                </label>
+                <label class="me-2">
+                    <input type="checkbox" t-on-change="toggleSearchDefaultCode" t-att-checked="state.searchDefaultCode"/>
+                    <span> Referencia</span>
+                </label>
+                <label>
+                    <input type="checkbox" t-on-change="toggleSearchDescription" t-att-checked="state.searchDescription"/>
+                    <span> Descripción</span>
+                </label>
+            </div>
             <div class="o_acrux_chat_product_items">
                 <t t-foreach="state.products" t-as="product" t-key="product.id">
                     <Product product="product" />
