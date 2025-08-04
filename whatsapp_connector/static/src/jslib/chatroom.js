@@ -1461,6 +1461,7 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
         stockFilter: 'positive',
         searchName: true,
         searchDescription: false,
+        searchDefaultCode: true,
       })
       this.lastSearch = ''
       this.props
@@ -1482,6 +1483,7 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
         stock_filter: this.state.stockFilter,
         search_name: this.state.searchName,
         search_description: this.state.searchDescription,
+        search_default_code: this.state.searchDefaultCode,
       }
       const result = await orm.call(
         this.env.chatModel,
@@ -1501,6 +1503,10 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
     }
     toggleSearchDescription() {
       this.state.searchDescription = !this.state.searchDescription
+      this.searchProduct({ search: this.lastSearch })
+    }
+    toggleSearchDefaultCode() {
+      this.state.searchDefaultCode = !this.state.searchDefaultCode
       this.searchProduct({ search: this.lastSearch })
     }
     async productOption({ product, event }) { if (this.props.selectedConversation) { if (this.props.selectedConversation.isMine()) { await this.doProductOption({ product, event }) } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('Yoy are not writing in this conversation.') }) } } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('You must select a conversation.') }) } }

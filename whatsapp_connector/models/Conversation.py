@@ -726,15 +726,17 @@ class AcruxChatConversation(models.Model):
             else:
                 search_name = filters.get('search_name')
                 search_description = filters.get('search_description')
-                if search_name or search_description:
-                    if search_name and search_description:
-                        domain += ['|',
-                                   ('product_tmpl_id.name', 'ilike', string),
-                                   ('product_tmpl_id.description', 'ilike', string)]
-                    elif search_name:
-                        domain.append(('product_tmpl_id.name', 'ilike', string))
-                    else:
-                        domain.append(('product_tmpl_id.description', 'ilike', string))
+                search_default_code = filters.get('search_default_code')
+                if search_name or search_description or search_default_code:
+                    exprs = []
+                    if search_name:
+                        exprs.append([('product_tmpl_id.name', 'ilike', string)])
+                    if search_description:
+                        exprs.append([('product_tmpl_id.description', 'ilike', string)])
+                    if search_default_code:
+                        exprs.append([('default_code', 'ilike', string)])
+                    if exprs:
+                        domain += expression.OR(exprs)
                 else:
                     domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
         fields_search = self.get_product_fields_to_read()
