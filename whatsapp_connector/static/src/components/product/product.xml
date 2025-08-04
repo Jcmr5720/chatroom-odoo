@@ -30,13 +30,13 @@
                         </li>
                         <t t-if="props.product.type == 'product'">
                             <li class="small">
-                                <span><strong>SAN</strong> <strong><t t-esc="props.product.qtyLocation"/></strong> UND</span>
+                                <span><strong>SAN:</strong> <strong><t t-esc="props.product.qtyLocation"/></strong> <strong>UND</strong></span>
                             </li>
                             <li class="small">
-                                <span><strong>TUL</strong> <strong><t t-esc="props.product.qtyTulipanes"/></strong> UND</span>
+                                <span><strong>TUL:</strong> <strong><t t-esc="props.product.qtyTulipanes"/></strong> <strong>UND</strong></span>
                             </li>
                             <li class="small">
-                                <span><strong>NEU</strong> <strong><t t-esc="props.product.qtyNeutron"/></strong> UND</span>
+                                <span><strong>NEU:</strong> <strong><t t-esc="props.product.qtyNeutron"/></strong> <strong>UND</strong></span>
                             </li>
                         </t>
                         <li class="small" style="color: #858585;">
