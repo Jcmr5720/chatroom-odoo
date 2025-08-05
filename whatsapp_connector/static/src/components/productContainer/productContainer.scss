@@ -15,29 +15,34 @@
         margin-bottom: 16px;
     }
 
-    .o_product_filters {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-left: 0;
+    .o_product_filters_dropdown {
+        align-self: flex-end;
         margin-bottom: 16px;
 
-        .form-select {
-            border-radius: 6px;
-            border: 1px solid #D1D5DB;
-            font-size: 14px;
-            color: #374151;
-        }
+        .dropdown-menu.o_product_filters {
+            &.show {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
 
-        label {
-            margin-bottom: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #6B7280;
+            .form-select {
+                border-radius: 6px;
+                border: 1px solid #D1D5DB;
+                font-size: 14px;
+                color: #374151;
+            }
 
-            input[type="checkbox"] {
-                accent-color: #6366F1;
+            label {
+                margin-bottom: 0;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: #6B7280;
+
+                input[type="checkbox"] {
+                    accent-color: #6366F1;
+                }
             }
         }
     }
