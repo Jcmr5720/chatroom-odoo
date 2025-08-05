@@ -63,6 +63,14 @@
                 <div class="o_GoogleSearchTab">
                     <form action="https://www.google.com/search" method="get" target="_blank" class="o_GoogleSearchForm">
                         <input type="text" name="q" placeholder="Search Google..." required="required"/>
+                        <label>
+                            <input type="checkbox" checked="checked"/>
+                            Web
+                        </label>
+                        <label>
+                            <input type="checkbox" name="tbm" value="isch"/>
+                            Imágenes
+                        </label>
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
