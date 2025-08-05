@@ -64,11 +64,11 @@
                     <form action="https://www.google.com/search" method="get" target="_blank" class="o_GoogleSearchForm">
                         <input type="text" name="q" placeholder="Search Google..." required="required"/>
                         <label>
-                            <input type="checkbox" checked="checked"/>
+                            <input type="checkbox" id="googleSearchWeb" checked="checked" onclick="this.checked=true;document.getElementById('googleSearchImages').checked=false;"/>
                             Web
                         </label>
                         <label>
-                            <input type="checkbox" name="tbm" value="isch"/>
+                            <input type="checkbox" id="googleSearchImages" name="tbm" value="isch" onclick="this.checked=true;document.getElementById('googleSearchWeb').checked=false;"/>
                             Imágenes
                         </label>
                         <button type="submit" class="btn btn-primary">Search</button>
