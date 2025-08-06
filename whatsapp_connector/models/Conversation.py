@@ -736,7 +736,8 @@ class AcruxChatConversation(models.Model):
                 search_name = filters.get('search_name')
                 search_description = filters.get('search_description')
                 search_default_code = filters.get('search_default_code')
-                if search_name or search_description or search_default_code:
+                search_categ_id = filters.get('search_categ_id')
+                if search_name or search_description or search_default_code or search_categ_id:
                     exprs = []
                     if search_name:
                         exprs.append([('product_tmpl_id.name', 'ilike', string)])
@@ -744,6 +745,8 @@ class AcruxChatConversation(models.Model):
                         exprs.append([('product_tmpl_id.description', 'ilike', string)])
                     if search_default_code:
                         exprs.append([('default_code', 'ilike', string)])
+                    if search_categ_id:
+                        exprs.append([('product_tmpl_id.categ_id.name', 'ilike', string)])
                     if exprs:
                         domain += expression.OR(exprs)
                 else:

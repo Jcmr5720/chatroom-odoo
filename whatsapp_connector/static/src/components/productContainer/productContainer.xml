@@ -20,6 +20,10 @@
                     <input type="checkbox" t-on-change="toggleSearchDefaultCode" t-att-checked="state.searchDefaultCode"/>
                     <span> Referencia</span>
                 </label>
+                <label class="me-2">
+                    <input type="checkbox" t-on-change="toggleSearchCategory" t-att-checked="state.searchCategory"/>
+                    <span> Categoría</span>
+                </label>
                 <label>
                     <input type="checkbox" t-on-change="toggleSearchDescription" t-att-checked="state.searchDescription"/>
                     <span> Descripción</span>
