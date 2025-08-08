@@ -15,6 +15,14 @@
         margin-bottom: 16px;
     }
 
+    .o_search_with_filter {
+        gap: 5px;
+        .form-select {
+            width: auto;
+            min-width: 160px;
+        }
+    }
+
     .o_product_filters {
         display: flex;
         align-items: center;
@@ -44,11 +52,8 @@
 
     .o_product_limit {
         margin-bottom: 16px;
-        color: #6B7280;
-
-        .o_limit_input {
-            width: 60px;
-            margin: 0 4px;
+        .form-control {
+            width: 4.5rem;
         }
     }
 

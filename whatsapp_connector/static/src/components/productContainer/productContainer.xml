@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-
     <t t-name="chatroom.ProductContainer" owl="1">
         <div class="acrux_ProductContainer" t-attf-class="{{ props.className }}">
             <ChatroomHeader className="'o_product_header'">
-                <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
+                <div class="d-flex align-items-center o_search_with_filter">
+                    <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
+                    <select class="form-select form-select-sm" t-on-change="changeStockFilter">
+                        <option value="positive">Unidades disponibles</option>
+                        <option value="negative">Sin unidades</option>
+                        <option value="all">Todos</option>
+                    </select>
+                </div>
             </ChatroomHeader>
             <div class="o_product_filters">
-                <select class="form-select form-select-sm me-2" t-on-change="changeStockFilter">
-                    <option value="positive">Unidades disponibles</option>
-                    <option value="negative">Sin unidades</option>
-                    <option value="all">Todos</option>
-                </select>
                 <label class="me-2">
                     <input type="checkbox" t-on-change="toggleSearchName" t-att-checked="state.searchName"/>
                     <span> Nombre</span>
@@ -29,10 +30,10 @@
                     <span> Descripción</span>
                 </label>
             </div>
-            <div class="o_product_limit">
-                <span>Mostrando </span>
-                <input type="number" class="o_limit_input" t-on-change="updateLimit" t-att-value="state.limit"/>
-                <span>/ <t t-esc="state.total"/> resultados</span>
+            <div class="o_product_limit d-flex justify-content-end align-items-center flex-nowrap text-muted">
+                <span class="me-1">Mostrando</span>
+                <input type="number" min="1" class="form-control form-control-sm w-4 text-end mx-1" t-on-change="updateLimit" t-att-value="state.limit"/>
+                <span class="ms-1">/ <t t-esc="state.total"/> resultados</span>
             </div>
             <div class="o_acrux_chat_product_items">
                 <t t-foreach="state.products" t-as="product" t-key="product.id">
@@ -41,6 +42,4 @@
             </div>
         </div>
     </t>
-
-
 </templates>
