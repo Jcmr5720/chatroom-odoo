@@ -709,6 +709,7 @@ class AcruxChatConversation(models.Model):
         fields_search = [
             'id', 'display_name', 'lst_price', 'uom_id',
             'write_date', 'product_tmpl_id', 'name', 'type', 'default_code',
+            'categ_id',
         ]
         if 'qty_available' in self.env['product.product']._fields:
             fields_search.append('qty_available')
@@ -754,7 +755,20 @@ class AcruxChatConversation(models.Model):
         fields_search = self.get_product_fields_to_read()
         out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=limit)
         total = ProductProduct.search_count(domain)
-        return {'products': out, 'total': total, 'limit': limit}
+        categories = {
+            prod['categ_id'][0]: prod['categ_id'][1]
+            for prod in out
+            if prod.get('categ_id')
+        }
+        categories_list = [
+            {'id': cid, 'name': cname} for cid, cname in categories.items()
+        ]
+        return {
+            'products': out,
+            'total': total,
+            'limit': limit,
+            'categories': categories_list,
+        }
 
     def init_and_notify(self):
         self.ensure_one()

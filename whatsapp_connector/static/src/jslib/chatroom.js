@@ -1458,6 +1458,8 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
       super.setup()
       this.env; this.state = useState({
         products: [],
+        allProducts: [],
+        categories: [],
         stockFilter: 'positive',
         searchName: true,
         searchDescription: false,
@@ -1495,7 +1497,9 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
         [val.trim(), filters, this.state.limit],
         { context: this.env.context },
       )
-      this.state.products = result.products.map(product => new ProductModel(this, product))
+      this.state.allProducts = result.products.map(product => new ProductModel(this, product))
+      this.state.categories = (result.categories || []).map(cat => ({ ...cat, selected: true }))
+      this.applyCategoryFilter()
       this.state.total = result.total
     }
     updateLimit(event) {
@@ -1521,6 +1525,22 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
     toggleSearchCategory() {
       this.state.searchCategory = !this.state.searchCategory
       this.searchProduct({ search: this.lastSearch })
+    }
+
+    applyCategoryFilter() {
+      const active = new Set(this.state.categories.filter(c => c.selected).map(c => c.id))
+      if (active.size) {
+        this.state.products = this.state.allProducts.filter(p => p.category && active.has(p.category.id))
+      } else {
+        this.state.products = [...this.state.allProducts]
+      }
+    }
+    toggleCategory(categoryId) {
+      const cat = this.state.categories.find(c => c.id === categoryId)
+      if (cat) {
+        cat.selected = !cat.selected
+        this.applyCategoryFilter()
+      }
     }
     async productOption({ product, event }) { if (this.props.selectedConversation) { if (this.props.selectedConversation.isMine()) { await this.doProductOption({ product, event }) } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('Yoy are not writing in this conversation.') }) } } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('You must select a conversation.') }) } }
     async doProductOption({ product }) {
@@ -2374,6 +2394,7 @@ odoo.define('@a57f7a72eb29be2e68a9675edd680394d67e2ecd8df85dc2c38e83822c8551e8',
       this.uom = { id: 0, name: '' }
       this.writeDate = null
       this.productTmpl = { id: 0, name: '' }
+      this.category = { id: 0, name: '' }
       this.name = ''
       this.type = ''
       this.defaultCode = ''
@@ -2398,6 +2419,7 @@ odoo.define('@a57f7a72eb29be2e68a9675edd680394d67e2ecd8df85dc2c38e83822c8551e8',
         this.uniqueHashImage = formatDateTime(this.writeDate).replace(/[^0-9]/g, '')
       }
       if ('product_tmpl_id' in base) { this.productTmpl = this.convertRecordField(base.product_tmpl_id) }
+      if ('categ_id' in base) { this.category = this.convertRecordField(base.categ_id) }
       if ('name' in base) { this.name = base.name }
       if ('type' in base) { this.type = base.type }
       if ('default_code' in base) { this.defaultCode = base.default_code }
