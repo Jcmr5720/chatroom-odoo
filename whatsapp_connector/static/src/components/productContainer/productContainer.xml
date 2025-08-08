@@ -4,7 +4,20 @@
     <t t-name="chatroom.ProductContainer" owl="1">
         <div class="acrux_ProductContainer" t-attf-class="{{ props.className }}">
             <ChatroomHeader className="'o_product_header'">
-                <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
+                <div class="d-flex align-items-center w-100">
+                    <ChatSearch placeHolder="placeHolder" eventName="'productSearch'" />
+                    <div class="dropdown ms-2">
+                        <button class="btn btn-sm btn-secondary fa fa-filter dropdown-toggle" type="button" data-bs-toggle="dropdown" />
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" t-on-click="setSearchMatch('ilike')" t-att-class="{'active': state.searchMatch === 'ilike'}">Coincidencias</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" t-on-click="setSearchMatch('=')" t-att-class="{'active': state.searchMatch === '='}">Estrictamente igual</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </ChatroomHeader>
             <div class="o_product_filters">
                 <select class="form-select form-select-sm me-2" t-on-change="changeStockFilter">

@@ -45,6 +45,9 @@
     .o_product_limit {
         margin-bottom: 16px;
         color: #6B7280;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
 
         .o_limit_input {
             width: 60px;

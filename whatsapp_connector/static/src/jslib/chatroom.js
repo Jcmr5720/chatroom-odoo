@@ -1463,6 +1463,7 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
         searchDescription: false,
         searchDefaultCode: true,
         searchCategory: true,
+        searchMatch: 'ilike',
         limit: 32,
         total: 0,
       })
@@ -1488,6 +1489,7 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
         search_description: this.state.searchDescription,
         search_default_code: this.state.searchDefaultCode,
         search_categ_id: this.state.searchCategory,
+        search_operator: this.state.searchMatch,
       }
       const result = await orm.call(
         this.env.chatModel,
@@ -1504,6 +1506,10 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
     }
     changeStockFilter(event) {
       this.state.stockFilter = event.target.value
+      this.searchProduct({ search: this.lastSearch })
+    }
+    setSearchMatch(match) {
+      this.state.searchMatch = match
       this.searchProduct({ search: this.lastSearch })
     }
     toggleSearchName() {

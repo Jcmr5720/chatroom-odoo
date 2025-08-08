@@ -737,20 +737,21 @@ class AcruxChatConversation(models.Model):
                 search_description = filters.get('search_description')
                 search_default_code = filters.get('search_default_code')
                 search_categ_id = filters.get('search_categ_id')
+                search_operator = filters.get('search_operator', 'ilike')
                 if search_name or search_description or search_default_code or search_categ_id:
                     exprs = []
                     if search_name:
-                        exprs.append([('product_tmpl_id.name', 'ilike', string)])
+                        exprs.append([('product_tmpl_id.name', search_operator, string)])
                     if search_description:
-                        exprs.append([('product_tmpl_id.description', 'ilike', string)])
+                        exprs.append([('product_tmpl_id.description', search_operator, string)])
                     if search_default_code:
-                        exprs.append([('default_code', 'ilike', string)])
+                        exprs.append([('default_code', search_operator, string)])
                     if search_categ_id:
-                        exprs.append([('categ_id.complete_name', 'ilike', string)])
+                        exprs.append([('categ_id.complete_name', search_operator, string)])
                     if exprs:
                         domain += expression.OR(exprs)
                 else:
-                    domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
+                    domain += ['|', ('name', search_operator, string), ('default_code', search_operator, string)]
         fields_search = self.get_product_fields_to_read()
         out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=limit)
         total = ProductProduct.search_count(domain)
