@@ -749,6 +749,8 @@ class AcruxChatConversation(models.Model):
                         exprs.append([('categ_id.complete_name', 'ilike', string)])
                         exprs.append([('categ_id.name', 'ilike', string)])
                         exprs.append([('categ_id.parent_id.name', 'ilike', string)])
+                        if isinstance(string, str) and string.isdigit():
+                            exprs.append([('categ_id.parent_id', '=', int(string))])
                     if exprs:
                         domain += expression.OR(exprs)
                 else:
