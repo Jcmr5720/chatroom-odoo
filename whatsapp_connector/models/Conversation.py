@@ -722,6 +722,7 @@ class AcruxChatConversation(models.Model):
         ProductProduct = self.env['product.product']
         domain = [('sale_ok', '=', True)]
         filters = filters or {}
+    
         stock_filter = filters.get('stock_filter')
         if not stock_filter and filters.get('available'):
             stock_filter = 'positive'
@@ -730,6 +731,7 @@ class AcruxChatConversation(models.Model):
                 domain.append(('qty_available', '>', 0))
             elif stock_filter == 'negative':
                 domain.append(('qty_available', '<=', 0))
+    
         if string:
             if string.startswith('/cat '):
                 domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
@@ -752,21 +754,34 @@ class AcruxChatConversation(models.Model):
                         domain += expression.OR(exprs)
                 else:
                     domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
+    
         fields_search = self.get_product_fields_to_read()
-        out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=limit)
+    
         total = ProductProduct.search_count(domain)
+    
+        req_limit = filters.get('limit', None)
+        if req_limit in (None, '', 'none', 'None', 'all', 'ALL', 0, '0'):
+            use_limit = None
+        else:
+            try:
+                req_limit = int(req_limit)
+                use_limit = req_limit if req_limit > 0 else None
+            except Exception:
+                use_limit = None
+    
+        out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=use_limit)
+    
         categories = {
             prod['categ_id'][0]: prod['categ_id'][1]
             for prod in out
             if prod.get('categ_id')
         }
-        categories_list = [
-            {'id': cid, 'name': cname} for cid, cname in categories.items()
-        ]
+        categories_list = [{'id': cid, 'name': cname} for cid, cname in categories.items()]
+    
         return {
             'products': out,
             'total': total,
-            'limit': limit,
+            'limit': use_limit if use_limit is not None else total,
             'categories': categories_list,
         }
 

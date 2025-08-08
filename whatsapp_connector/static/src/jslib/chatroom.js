@@ -1464,7 +1464,7 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
         searchName: true,
         searchDescription: false,
         searchDefaultCode: true,
-        searchCategory: false,
+        searchCategory: true,
         limit: 32,
         total: 0,
       })

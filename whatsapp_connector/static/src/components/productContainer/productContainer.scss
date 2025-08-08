@@ -75,4 +75,29 @@
         align-content: start;
         align-items: start;
     }
+
+    .o_cat_details summary {
+        list-style: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: .25rem;
+    }
+
+    .o_cat_details summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .o_cat_details[open] .when-closed {
+        display: none;
+    }
+
+    .o_cat_details:not([open]) .when-open {
+        display: none;
+    }
+
+    .o_categories_select {
+        min-height: 160px;
+        max-height: 220px;
+    }
 }
