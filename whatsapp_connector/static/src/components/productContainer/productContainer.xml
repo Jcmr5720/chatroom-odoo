@@ -31,7 +31,7 @@
                 </label>
             </div>
             <div class="o_product_categories">
-                <select class="form-select" multiple t-on-change="changeCategories">
+                <select class="form-select" multiple="multiple" t-on-change="changeCategories">
                     <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
                         <option t-att-value="cat.id" t-att-selected="cat.selected">
                             <t t-esc="cat.name"/>
