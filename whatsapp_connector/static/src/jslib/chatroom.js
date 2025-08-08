@@ -1535,12 +1535,12 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
         this.state.products = [...this.state.allProducts]
       }
     }
-    toggleCategory(categoryId) {
-      const cat = this.state.categories.find(c => c.id === categoryId)
-      if (cat) {
-        cat.selected = !cat.selected
-        this.applyCategoryFilter()
-      }
+    changeCategories(event) {
+      const selected = new Set(Array.from(event.target.selectedOptions).map(o => parseInt(o.value)))
+      this.state.categories.forEach(cat => {
+        cat.selected = selected.has(cat.id)
+      })
+      this.applyCategoryFilter()
     }
     async productOption({ product, event }) { if (this.props.selectedConversation) { if (this.props.selectedConversation.isMine()) { await this.doProductOption({ product, event }) } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('Yoy are not writing in this conversation.') }) } } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('You must select a conversation.') }) } }
     async doProductOption({ product }) {

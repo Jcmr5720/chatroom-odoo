@@ -31,12 +31,13 @@
                 </label>
             </div>
             <div class="o_product_categories">
-                <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
-                    <label class="me-2">
-                        <input type="checkbox" t-att-checked="cat.selected" t-on-change="() => toggleCategory(cat.id)"/>
-                        <span t-esc="cat.name"/>
-                    </label>
-                </t>
+                <select class="form-select" multiple t-on-change="changeCategories">
+                    <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
+                        <option t-att-value="cat.id" t-att-selected="cat.selected">
+                            <t t-esc="cat.name"/>
+                        </option>
+                    </t>
+                </select>
             </div>
             <div class="o_product_limit d-flex justify-content-end align-items-center flex-nowrap text-muted">
                 <span class="me-1">Mostrando</span>

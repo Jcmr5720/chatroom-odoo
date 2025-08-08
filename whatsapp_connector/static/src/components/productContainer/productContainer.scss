@@ -51,21 +51,10 @@
     }
 
     .o_product_categories {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
         margin-bottom: 16px;
 
-        label {
-            margin-bottom: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #6B7280;
-
-            input[type="checkbox"] {
-                accent-color: #6366F1;
-            }
+        .form-select {
+            min-width: 200px;
         }
     }
 
