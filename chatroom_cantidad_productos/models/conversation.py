@@ -31,4 +31,12 @@ class AcruxChatConversation(models.Model):
             elif stock_filter == 'negative':
                 products = [p for p in products if p.get('quantity_total', 0) < 0]
         result['products'] = products
+        categories = {
+            prod['categ_id'][0]: prod['categ_id'][1]
+            for prod in products
+            if prod.get('categ_id')
+        }
+        result['categories'] = [
+            {'id': cid, 'name': cname} for cid, cname in categories.items()
+        ]
         return result

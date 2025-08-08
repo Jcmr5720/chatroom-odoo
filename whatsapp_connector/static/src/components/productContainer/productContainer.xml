@@ -30,6 +30,14 @@
                     <span> Descripción</span>
                 </label>
             </div>
+            <div class="o_product_categories">
+                <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
+                    <label class="me-2">
+                        <input type="checkbox" t-att-checked="cat.selected" t-on-change="() => toggleCategory(cat.id)"/>
+                        <span t-esc="cat.name"/>
+                    </label>
+                </t>
+            </div>
             <div class="o_product_limit d-flex justify-content-end align-items-center flex-nowrap text-muted">
                 <span class="me-1">Mostrando</span>
                 <input type="number" min="1" class="form-control form-control-sm w-4 text-end mx-1" t-on-change="updateLimit" t-att-value="state.limit"/>
