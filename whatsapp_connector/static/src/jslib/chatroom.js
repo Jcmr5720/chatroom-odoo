@@ -1463,6 +1463,8 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
         searchDescription: false,
         searchDefaultCode: true,
         searchCategory: true,
+        limit: 32,
+        total: 0,
       })
       this.lastSearch = ''
       this.props
@@ -1490,10 +1492,15 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
       const result = await orm.call(
         this.env.chatModel,
         'search_product',
-        [val.trim(), filters],
+        [val.trim(), filters, this.state.limit],
         { context: this.env.context },
       )
-      this.state.products = result.map(product => new ProductModel(this, product))
+      this.state.products = result.products.map(product => new ProductModel(this, product))
+      this.state.total = result.total
+    }
+    updateLimit(event) {
+      this.state.limit = parseInt(event.target.value, 10) || 0
+      this.searchProduct({ search: this.lastSearch })
     }
     changeStockFilter(event) {
       this.state.stockFilter = event.target.value

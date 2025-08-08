@@ -20,13 +20,15 @@ class AcruxChatConversation(models.Model):
         return fields_search
 
     @api.model
-    def search_product(self, string, filters=None):
-        products = super().search_product(string, filters=filters)
+    def search_product(self, string, filters=None, limit=32):
+        result = super().search_product(string, filters=filters, limit=limit)
 
+        products = result.get('products', [])
         if 'quantity_total' in self.env['product.product']._fields:
             stock_filter = (filters or {}).get('stock_filter', 'positive')
             if stock_filter == 'positive':
                 products = [p for p in products if p.get('quantity_total', 0) > 0]
             elif stock_filter == 'negative':
                 products = [p for p in products if p.get('quantity_total', 0) < 0]
-        return products
+        result['products'] = products
+        return result

@@ -29,6 +29,11 @@
                     <span> Descripción</span>
                 </label>
             </div>
+            <div class="o_product_limit">
+                <span>Mostrando </span>
+                <input type="number" class="o_limit_input" t-on-change="updateLimit" t-att-value="state.limit"/>
+                <span>/ <t t-esc="state.total"/> resultados</span>
+            </div>
             <div class="o_acrux_chat_product_items">
                 <t t-foreach="state.products" t-as="product" t-key="product.id">
                     <Product product="product" />
