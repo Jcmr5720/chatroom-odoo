@@ -42,6 +42,16 @@
         }
     }
 
+    .o_product_limit {
+        margin-bottom: 16px;
+        color: #6B7280;
+
+        .o_limit_input {
+            width: 60px;
+            margin: 0 4px;
+        }
+    }
+
     .o_acrux_chat_product_items {
         flex: 1 1 auto;
         overflow-y: auto;

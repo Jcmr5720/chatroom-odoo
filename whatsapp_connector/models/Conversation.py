@@ -717,7 +717,7 @@ class AcruxChatConversation(models.Model):
         return fields_search
 
     @api.model
-    def search_product(self, string, filters=None):
+    def search_product(self, string, filters=None, limit=32):
         ProductProduct = self.env['product.product']
         domain = [('sale_ok', '=', True)]
         filters = filters or {}
@@ -752,8 +752,9 @@ class AcruxChatConversation(models.Model):
                 else:
                     domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
         fields_search = self.get_product_fields_to_read()
-        out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=32)
-        return out
+        out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=limit)
+        total = ProductProduct.search_count(domain)
+        return {'products': out, 'total': total, 'limit': limit}
 
     def init_and_notify(self):
         self.ensure_one()
