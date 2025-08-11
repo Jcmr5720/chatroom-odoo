@@ -719,10 +719,19 @@ class AcruxChatConversation(models.Model):
 
     @api.model
     def search_product(self, string, filters=None, limit=32):
+        filters = filters or {}
+        string = (string or '').strip()
+        if not string:
+            return {
+                'products': [],
+                'total': 0,
+                'limit': 0,
+                'categories': [],
+            }
+
         ProductProduct = self.env['product.product']
         domain = [('sale_ok', '=', True)]
-        filters = filters or {}
-    
+
         stock_filter = filters.get('stock_filter')
         if not stock_filter and filters.get('available'):
             stock_filter = 'positive'
@@ -731,29 +740,28 @@ class AcruxChatConversation(models.Model):
                 domain.append(('qty_available', '>', 0))
             elif stock_filter == 'negative':
                 domain.append(('qty_available', '<=', 0))
-    
-        if string:
-            if string.startswith('/cat '):
-                domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
+
+        if string.startswith('/cat '):
+            domain += [('categ_id.complete_name', 'ilike', string[5:].strip())]
+        else:
+            search_name = filters.get('search_name')
+            search_description = filters.get('search_description')
+            search_default_code = filters.get('search_default_code')
+            search_categ_id = filters.get('search_categ_id')
+            if search_name or search_description or search_default_code or search_categ_id:
+                exprs = []
+                if search_name:
+                    exprs.append([('product_tmpl_id.name', 'ilike', string)])
+                if search_description:
+                    exprs.append([('product_tmpl_id.description', 'ilike', string)])
+                if search_default_code:
+                    exprs.append([('default_code', 'ilike', string)])
+                if search_categ_id:
+                    exprs.append([('categ_id.complete_name', 'ilike', string)])
+                if exprs:
+                    domain += expression.OR(exprs)
             else:
-                search_name = filters.get('search_name')
-                search_description = filters.get('search_description')
-                search_default_code = filters.get('search_default_code')
-                search_categ_id = filters.get('search_categ_id')
-                if search_name or search_description or search_default_code or search_categ_id:
-                    exprs = []
-                    if search_name:
-                        exprs.append([('product_tmpl_id.name', 'ilike', string)])
-                    if search_description:
-                        exprs.append([('product_tmpl_id.description', 'ilike', string)])
-                    if search_default_code:
-                        exprs.append([('default_code', 'ilike', string)])
-                    if search_categ_id:
-                        exprs.append([('categ_id.complete_name', 'ilike', string)])
-                    if exprs:
-                        domain += expression.OR(exprs)
-                else:
-                    domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
+                domain += ['|', ('name', 'ilike', string), ('default_code', 'ilike', string)]
     
         fields_search = self.get_product_fields_to_read()
     
