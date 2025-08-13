@@ -18,6 +18,9 @@
                                 <span t-if="props.product.lstPrice" class="o_field_monetary o_field_number o_field_widget" name="lst_price">
                                     <t t-esc="formatPrice(props.product.lstPrice)" />
                                 </span>
+                                <t t-if="props.product.isPromotion">
+                                    <span class="badge bg-success ms-1">Promoción</span>
+                                </t>
                                 <t t-if="props.product.type == 'product'">
                                     <t t-if="props.product.qtyAvailabletecno > 0.0"><t t-set="fcolor" t-value="'text-muted'"/></t>
                                     <t t-else=""><t t-set="fcolor" t-value="'acrux_red_text'"/></t>

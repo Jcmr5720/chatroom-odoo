@@ -1542,6 +1542,20 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
       })
       this.applyCategoryFilter()
     }
+    async showPromotions() {
+      const { orm } = this.env.services
+      const filters = { promotions: true, stock_filter: this.state.stockFilter }
+      const result = await orm.call(
+        this.env.chatModel,
+        'search_product',
+        ['', filters, this.state.limit],
+        { context: this.env.context },
+      )
+      this.state.allProducts = result.products.map(product => new ProductModel(this, product))
+      this.state.categories = (result.categories || []).map(cat => ({ ...cat, selected: true }))
+      this.applyCategoryFilter()
+      this.state.total = result.total
+    }
     async productOption({ product, event }) { if (this.props.selectedConversation) { if (this.props.selectedConversation.isMine()) { await this.doProductOption({ product, event }) } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('Yoy are not writing in this conversation.') }) } } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('You must select a conversation.') }) } }
     async doProductOption({ product }) {
       await this.props.selectedConversation.sendProduct(product.id)
@@ -2406,6 +2420,7 @@ odoo.define('@a57f7a72eb29be2e68a9675edd680394d67e2ecd8df85dc2c38e83822c8551e8',
       this.showProductText = true
       this.uniqueHashImage = ''
       this.showOptions = true
+      this.isPromotion = false
       if (base) { this.updateFromJson(base) }
     }
     updateFromJson(base) {
@@ -2430,6 +2445,7 @@ odoo.define('@a57f7a72eb29be2e68a9675edd680394d67e2ecd8df85dc2c38e83822c8551e8',
       if ('quantity_in_neutron' in base) { this.qtyNeutron = base.quantity_in_neutron }
       if ('show_product_text' in base) { this.showProductText = base.show_product_text }
       if ('show_options' in base) { this.showOptions = base.show_options }
+      if ('is_promotion' in base) { this.isPromotion = base.is_promotion }
     }
   }
   return __exports;

@@ -32,21 +32,24 @@
                 </label>
             </div>
 
-            <details class="o_cat_details mb-2">
-                <summary class="btn btn-sm btn-outline-secondary">
-                    <span class="when-closed">Mostrar categorías</span>
-                    <span class="when-open">Ocultar categorías</span>
-                </summary>
-                <div class="o_product_categories mt-2">
-                    <select class="form-select o_categories_select" multiple="multiple" t-on-change="changeCategories">
-                        <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
-                            <option t-att-value="cat.id" t-att-selected="cat.selected">
-                                <t t-esc="cat.name"/>
-                            </option>
-                        </t>
-                    </select>
-                </div>
-            </details>
+            <div class="d-flex mb-2">
+                <details class="o_cat_details me-2">
+                    <summary class="btn btn-sm btn-outline-secondary">
+                        <span class="when-closed">Mostrar categorías</span>
+                        <span class="when-open">Ocultar categorías</span>
+                    </summary>
+                    <div class="o_product_categories mt-2">
+                        <select class="form-select o_categories_select" multiple="multiple" t-on-change="changeCategories">
+                            <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
+                                <option t-att-value="cat.id" t-att-selected="cat.selected">
+                                    <t t-esc="cat.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </details>
+                <button class="btn btn-sm btn-outline-secondary" t-on-click="showPromotions">Ver promociones</button>
+            </div>
 
             <div class="o_product_limit d-flex justify-content-end align-items-center flex-nowrap text-muted">
                 <span class="me-1">Mostrando</span>
