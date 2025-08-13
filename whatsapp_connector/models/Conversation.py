@@ -731,19 +731,32 @@ class AcruxChatConversation(models.Model):
                 ('discount', '>', 0),
                 ('program_id.program_type', '=', 'promotion'),
             ])
-            product_ids = set()
-            product_ids.update(
-                promo_rewards.mapped('discount_product_ids').ids
-            )
-            categ_ids = promo_rewards.mapped('discount_product_category_id.id')
-            if categ_ids:
-                categ_products = ProductProduct.search(
-                    [('categ_id', 'child_of', categ_ids)]
-                )
-                product_ids.update(categ_products.ids)
-            if not product_ids and 'product_id' in Reward._fields:
-                product_ids.update(promo_rewards.mapped('product_id').ids)
-            product_ids = list(product_ids)
+
+            product_discounts = {}
+            for reward in promo_rewards:
+                discount = reward.discount
+                for prod in reward.discount_product_ids:
+                    product_discounts[prod.id] = max(
+                        product_discounts.get(prod.id, 0), discount
+                    )
+                if reward.discount_product_category_id:
+                    prods = ProductProduct.search([
+                        ('categ_id', 'child_of', reward.discount_product_category_id.ids)
+                    ])
+                    for prod in prods:
+                        product_discounts[prod.id] = max(
+                            product_discounts.get(prod.id, 0), discount
+                        )
+                if (
+                    not reward.discount_product_ids
+                    and 'product_id' in Reward._fields
+                    and reward.product_id
+                ):
+                    product_discounts[reward.product_id.id] = max(
+                        product_discounts.get(reward.product_id.id, 0), discount
+                    )
+
+            product_ids = list(product_discounts.keys())
             req_limit = filters.get('limit', limit)
             if req_limit in (None, '', 'none', 'None', 'all', 'ALL', 0, '0', False):
                 use_limit = None
@@ -761,12 +774,15 @@ class AcruxChatConversation(models.Model):
             )
             for prod in out:
                 prod['is_promotion'] = True
+                prod['discount_percentage'] = product_discounts.get(prod['id'], 0)
             categories = {
                 prod['categ_id'][0]: prod['categ_id'][1]
                 for prod in out
                 if prod.get('categ_id')
             }
-            categories_list = [{'id': cid, 'name': cname} for cid, cname in categories.items()]
+            categories_list = [
+                {'id': cid, 'name': cname} for cid, cname in categories.items()
+            ]
             total = len(product_ids)
             return {
                 'products': out,
@@ -842,25 +858,41 @@ class AcruxChatConversation(models.Model):
             ('program_id.program_type', '=', 'promotion'),
         ])
         if promo_rewards:
-            promo_product_ids = set(promo_rewards.mapped('discount_product_ids').ids)
-            categ_ids = promo_rewards.mapped('discount_product_category_id.id')
-            if categ_ids:
-                promo_category_ids = set(
-                    self.env['product.category'].search([('id', 'child_of', categ_ids)]).ids
-                )
-            else:
-                promo_category_ids = set()
-            if not promo_product_ids and 'product_id' in Reward._fields:
-                promo_product_ids.update(promo_rewards.mapped('product_id').ids)
-            for prod in out:
+            product_discounts = {}
+            out_ids = [p['id'] for p in out]
+            for reward in promo_rewards:
+                discount = reward.discount
+                for prod in reward.discount_product_ids:
+                    if prod.id in out_ids:
+                        product_discounts[prod.id] = max(
+                            product_discounts.get(prod.id, 0), discount
+                        )
+                if reward.discount_product_category_id:
+                    category_ids = self.env['product.category'].search([
+                        ('id', 'child_of', reward.discount_product_category_id.ids)
+                    ]).ids
+                    for prod in out:
+                        if (
+                            prod.get('categ_id')
+                            and prod['categ_id'][0] in category_ids
+                        ):
+                            product_discounts[prod['id']] = max(
+                                product_discounts.get(prod['id'], 0), discount
+                            )
                 if (
-                    prod['id'] in promo_product_ids
-                    or (
-                        prod.get('categ_id')
-                        and prod['categ_id'][0] in promo_category_ids
-                    )
+                    not reward.discount_product_ids
+                    and 'product_id' in Reward._fields
+                    and reward.product_id
+                    and reward.product_id.id in out_ids
                 ):
+                    product_discounts[reward.product_id.id] = max(
+                        product_discounts.get(reward.product_id.id, 0), discount
+                    )
+            for prod in out:
+                discount = product_discounts.get(prod['id'])
+                if discount:
                     prod['is_promotion'] = True
+                    prod['discount_percentage'] = discount
 
         categories = {
             prod['categ_id'][0]: prod['categ_id'][1]
