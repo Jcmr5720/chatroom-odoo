@@ -721,6 +721,41 @@ class AcruxChatConversation(models.Model):
     def search_product(self, string, filters=None, limit=32):
         filters = filters or {}
         string = (string or '').strip()
+
+        if filters.get('promotions'):
+            ProductProduct = self.env['product.product']
+            Reward = self.env['loyalty.reward']
+            fields_search = self.get_product_fields_to_read()
+            promo_rewards = Reward.search([
+                ('reward_type', '=', 'discount'),
+                ('discount', '>', 0),
+                ('program_id.program_type', '=', 'promotion'),
+            ])
+            product_ids = promo_rewards.mapped('reward_product_ids').ids
+            if not product_ids:
+                product_ids = promo_rewards.mapped('product_id').ids
+            out = ProductProduct.search_read(
+                [('id', 'in', product_ids)],
+                fields_search,
+                order='name, list_price',
+                limit=limit,
+            )
+            for prod in out:
+                prod['is_promotion'] = True
+            categories = {
+                prod['categ_id'][0]: prod['categ_id'][1]
+                for prod in out
+                if prod.get('categ_id')
+            }
+            categories_list = [{'id': cid, 'name': cname} for cid, cname in categories.items()]
+            total = len(out)
+            return {
+                'products': out,
+                'total': total,
+                'limit': total,
+                'categories': categories_list,
+            }
+
         if not string:
             return {
                 'products': [],
