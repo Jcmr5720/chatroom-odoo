@@ -477,6 +477,7 @@ class AcruxChatConversation(models.Model):
                 'format_price': format_price,
                 'product_id': product_id,
                 'conversation_id': self,
+                'self': self,
                 'product_url': self.get_product_url(product_id),
                 'sale': self.is_product_on_sale(product_id),
                 'text': ''
