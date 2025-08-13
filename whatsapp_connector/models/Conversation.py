@@ -454,6 +454,36 @@ class AcruxChatConversation(models.Model):
         url = product_id.website_url or product_id.product_tmpl_id.website_url or ''
         return urljoin(base_url, url)
 
+    def get_product_sale(self, product_id):
+        """Return 'yes' if product has active discount promotions, else 'no'."""
+        self.ensure_one()
+        Reward = self.env['loyalty.reward']
+        promo_rewards = Reward.search([
+            ('reward_type', '=', 'discount'),
+            ('discount', '>', 0),
+            ('program_id.program_type', '=', 'promotion'),
+        ])
+        has_discount = False
+        for reward in promo_rewards:
+            if product_id in reward.discount_product_ids:
+                has_discount = True
+            elif reward.discount_product_category_id:
+                category_ids = self.env['product.category'].search([
+                    ('id', 'child_of', reward.discount_product_category_id.ids)
+                ]).ids
+                if product_id.categ_id.id in category_ids:
+                    has_discount = True
+            elif (
+                not reward.discount_product_ids
+                and 'product_id' in Reward._fields
+                and reward.product_id
+                and reward.product_id == product_id
+            ):
+                has_discount = True
+            if has_discount:
+                break
+        return 'yes' if has_discount else 'no'
+
     def get_product_caption(self, product_id):
         self.ensure_one()
         if not product_id:
@@ -469,6 +499,7 @@ class AcruxChatConversation(models.Model):
                 'product_id': product_id,
                 'conversation_id': self,
                 'product_url': self.get_product_url(product_id),
+                'sale_status': self.get_product_sale(product_id),
                 'text': ''
             }
             safe_eval(product_caption, locals_dict=local_dict, mode='exec', nocopy=True)
