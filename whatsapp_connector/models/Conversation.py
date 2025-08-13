@@ -731,11 +731,20 @@ class AcruxChatConversation(models.Model):
                 ('discount', '>', 0),
                 ('program_id.program_type', '=', 'promotion'),
             ])
-            product_ids = promo_rewards.mapped('reward_product_ids').ids
+            product_ids = set()
+            product_ids.update(
+                promo_rewards.mapped('discount_product_ids.product_variant_ids').ids
+            )
+            categ_ids = promo_rewards.mapped('discount_product_category_id.id')
+            if categ_ids:
+                categ_products = ProductProduct.search(
+                    [('categ_id', 'child_of', categ_ids)]
+                )
+                product_ids.update(categ_products.ids)
             if not product_ids and 'product_id' in Reward._fields:
-                product_ids = promo_rewards.mapped('product_id').ids
+                product_ids.update(promo_rewards.mapped('product_id').ids)
             out = ProductProduct.search_read(
-                [('id', 'in', product_ids)],
+                [('id', 'in', list(product_ids))],
                 fields_search,
                 order='name, list_price',
                 limit=limit,
