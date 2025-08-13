@@ -730,7 +730,6 @@ class AcruxChatConversation(models.Model):
                 ('reward_type', '=', 'discount'),
                 ('discount', '>', 0),
                 ('program_id.program_type', '=', 'promotion'),
-                ('program_id.name', 'in', ['flash_sale', 'day_sale', 'week_sale']),
             ])
             product_ids = set()
             product_ids.update(
@@ -744,11 +743,21 @@ class AcruxChatConversation(models.Model):
                 product_ids.update(categ_products.ids)
             if not product_ids and 'product_id' in Reward._fields:
                 product_ids.update(promo_rewards.mapped('product_id').ids)
+            product_ids = list(product_ids)
+            req_limit = filters.get('limit', limit)
+            if req_limit in (None, '', 'none', 'None', 'all', 'ALL', 0, '0', False):
+                use_limit = None
+            else:
+                try:
+                    req_limit = int(req_limit)
+                    use_limit = req_limit if req_limit > 0 else None
+                except Exception:
+                    use_limit = None
             out = ProductProduct.search_read(
-                [('id', 'in', list(product_ids))],
+                [('id', 'in', product_ids)],
                 fields_search,
                 order='name, list_price',
-                limit=limit,
+                limit=use_limit,
             )
             for prod in out:
                 prod['is_promotion'] = True
@@ -758,11 +767,11 @@ class AcruxChatConversation(models.Model):
                 if prod.get('categ_id')
             }
             categories_list = [{'id': cid, 'name': cname} for cid, cname in categories.items()]
-            total = len(out)
+            total = len(product_ids)
             return {
                 'products': out,
                 'total': total,
-                'limit': total,
+                'limit': use_limit if use_limit is not None else total,
                 'categories': categories_list,
             }
 
