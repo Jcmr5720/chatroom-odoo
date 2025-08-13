@@ -734,7 +734,7 @@ class AcruxChatConversation(models.Model):
             ])
             product_ids = set()
             product_ids.update(
-                promo_rewards.mapped('discount_product_ids.product_variant_ids').ids
+                promo_rewards.mapped('discount_product_ids').ids
             )
             categ_ids = promo_rewards.mapped('discount_product_category_id.id')
             if categ_ids:
