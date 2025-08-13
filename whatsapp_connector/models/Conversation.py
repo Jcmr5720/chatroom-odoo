@@ -460,7 +460,9 @@ class AcruxChatConversation(models.Model):
         if not product_id:
             return False
         list_price = getattr(product_id, 'lst_price', product_id.list_price)
-        website_price = getattr(product_id, 'website_price', list_price)
+        website_price = getattr(product_id, 'website_price', None)
+        if website_price is None or website_price == list_price:
+            website_price = getattr(product_id, 'price', list_price)
         return website_price < list_price
 
     def get_product_caption(self, product_id):
@@ -472,6 +474,7 @@ class AcruxChatConversation(models.Model):
         if product_caption:
             def format_price(price):
                 return formatLang(self.env, price, currency_obj=self.env.company.currency_id)
+            is_on_sale = self.is_product_on_sale(product_id)
             local_dict = {
                 'env': self.env,
                 'format_price': format_price,
@@ -479,7 +482,9 @@ class AcruxChatConversation(models.Model):
                 'conversation_id': self,
                 'self': self,
                 'product_url': self.get_product_url(product_id),
-                'sale': self.is_product_on_sale(product_id),
+                # expose sale information with two keys for compatibility
+                'is_on_sale': is_on_sale,
+                'sale': is_on_sale,
                 'text': ''
             }
             safe_eval(product_caption, locals_dict=local_dict, mode='exec', nocopy=True)
