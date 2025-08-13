@@ -1548,13 +1548,14 @@ odoo.define('@aedb85b64f8970ed4ccdcfb5fad7484eb5f9502792073b672b574c2d95ef5fe2',
       const result = await orm.call(
         this.env.chatModel,
         'search_product',
-        ['', filters, this.state.limit],
+        ['', filters, 0],
         { context: this.env.context },
       )
       this.state.allProducts = result.products.map(product => new ProductModel(this, product))
       this.state.categories = (result.categories || []).map(cat => ({ ...cat, selected: true }))
       this.applyCategoryFilter()
       this.state.total = result.total
+      this.state.limit = result.limit
     }
     async productOption({ product, event }) { if (this.props.selectedConversation) { if (this.props.selectedConversation.isMine()) { await this.doProductOption({ product, event }) } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('Yoy are not writing in this conversation.') }) } } else { this.env.services.dialog.add(WarningDialog, { message: this.env._t('You must select a conversation.') }) } }
     async doProductOption({ product }) {
