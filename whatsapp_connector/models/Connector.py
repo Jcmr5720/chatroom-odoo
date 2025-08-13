@@ -88,10 +88,29 @@ class AcruxChatConnector(models.Model):
     valid_limit = fields.Integer('Query limit', readonly=True)
     valid_date = fields.Date('Until', readonly=True)
     allow_signing = fields.Boolean('Allow Signing', default=False)
-    product_caption = fields.Text('Caption',
-                                  default='list_price = format_price(product_id.lst_price)\n'
-                                          'text = "%s\\n%s / %s" % (product_id.display_name.strip(), '
-                                          'list_price, product_id.uom_id.name[:4])\n')
+    product_caption = fields.Text(
+        'Caption',
+        default='''list_price = format_price(product_id.lst_price)
+stock = product_id.qty_available
+disponibilidad = "✅ DISPONIBLE" if stock > 0 else "❌ NO DISPONIBLE"
+sale_price = getattr(product_id, "website_price", product_id.lst_price)
+sale = sale_price < product_id.lst_price
+promo = "🏷️ Este producto tiene descuento en la web\\n\\n" if sale else ""
+text = (
+    "🛍️ {name}\\n\\n"
+    "💵 Precio: {price}\\n\\n"
+    "{stock_status}\\n\\n"
+    "{promo}"
+    "🔗 Ver en página:\\n{url}\\n\\n"
+).format(
+    name=product_id.display_name.strip(),
+    price=list_price,
+    stock_status=disponibilidad,
+    promo=promo,
+    url=product_url,
+)
+'''
+    )
     chatroom_hide_branding = fields.Boolean('Hide Branding', compute='_compute_hide_branding', store=False)
     allowed_lang_ids = fields.Many2many('res.lang', string='Langs', context={'active_test': False},
                                         help='Langs that can be translated in this connector.')
