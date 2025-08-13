@@ -730,6 +730,7 @@ class AcruxChatConversation(models.Model):
                 ('reward_type', '=', 'discount'),
                 ('discount', '>', 0),
                 ('program_id.program_type', '=', 'promotion'),
+                ('program_id.name', 'in', ['flash_sale', 'day_sale', 'week_sale']),
             ])
             product_ids = set()
             product_ids.update(
