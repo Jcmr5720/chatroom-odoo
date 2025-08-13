@@ -32,7 +32,7 @@
                 </label>
             </div>
 
-            <div class="d-flex mb-2">
+            <div class="d-flex align-items-start mb-2">
                 <details class="o_cat_details me-2">
                     <summary class="btn btn-sm btn-outline-secondary">
                         <span class="when-closed">Mostrar categorías</span>
