@@ -732,7 +732,7 @@ class AcruxChatConversation(models.Model):
                 ('program_id.program_type', '=', 'promotion'),
             ])
             product_ids = promo_rewards.mapped('reward_product_ids').ids
-            if not product_ids:
+            if not product_ids and 'product_id' in Reward._fields:
                 product_ids = promo_rewards.mapped('product_id').ids
             out = ProductProduct.search_read(
                 [('id', 'in', product_ids)],
