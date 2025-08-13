@@ -454,6 +454,15 @@ class AcruxChatConversation(models.Model):
         url = product_id.website_url or product_id.product_tmpl_id.website_url or ''
         return urljoin(base_url, url)
 
+    def is_product_on_sale(self, product_id):
+        """Return True if product has a discount on website."""
+        self.ensure_one()
+        if not product_id:
+            return False
+        list_price = getattr(product_id, 'lst_price', product_id.list_price)
+        website_price = getattr(product_id, 'website_price', list_price)
+        return website_price < list_price
+
     def get_product_caption(self, product_id):
         self.ensure_one()
         if not product_id:
@@ -469,11 +478,12 @@ class AcruxChatConversation(models.Model):
                 'product_id': product_id,
                 'conversation_id': self,
                 'product_url': self.get_product_url(product_id),
+                'sale': self.is_product_on_sale(product_id),
                 'text': ''
             }
             safe_eval(product_caption, locals_dict=local_dict, mode='exec', nocopy=True)
             text = local_dict.get('text', '') or ''
-        return (text or '').strip()
+        return (text or product_id.display_name or '').strip()
 
     def send_message(self, msg_data, check_access=True):
         self.ensure_one()
@@ -513,7 +523,7 @@ class AcruxChatConversation(models.Model):
             }
         else:
             msg_data = {
-                'text': self.get_product_caption(product_id) or product_id.display_name.strip(),
+                'text': self.get_product_caption(product_id),
                 'from_me': True,
                 'ttype': 'text',
             }
