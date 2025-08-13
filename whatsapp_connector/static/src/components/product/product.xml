@@ -19,7 +19,12 @@
                                     <t t-esc="formatPrice(props.product.lstPrice)" />
                                 </span>
                                 <t t-if="props.product.isPromotion">
-                                    <span class="badge bg-success ms-1">Promoción</span>
+                                    <span class="badge bg-danger ms-1 text-white">
+                                        SALE
+                                        <t t-if="props.product.discountPercentage">
+                                            <t t-esc="props.product.discountPercentage" />%
+                                        </t>
+                                    </span>
                                 </t>
                                 <t t-if="props.product.type == 'product'">
                                     <t t-if="props.product.qtyAvailabletecno > 0.0"><t t-set="fcolor" t-value="'text-muted'"/></t>

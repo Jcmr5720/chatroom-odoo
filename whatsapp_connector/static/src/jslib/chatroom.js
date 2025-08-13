@@ -2422,6 +2422,7 @@ odoo.define('@a57f7a72eb29be2e68a9675edd680394d67e2ecd8df85dc2c38e83822c8551e8',
       this.uniqueHashImage = ''
       this.showOptions = true
       this.isPromotion = false
+      this.discountPercentage = 0
       if (base) { this.updateFromJson(base) }
     }
     updateFromJson(base) {
@@ -2447,6 +2448,7 @@ odoo.define('@a57f7a72eb29be2e68a9675edd680394d67e2ecd8df85dc2c38e83822c8551e8',
       if ('show_product_text' in base) { this.showProductText = base.show_product_text }
       if ('show_options' in base) { this.showOptions = base.show_options }
       if ('is_promotion' in base) { this.isPromotion = base.is_promotion }
+      if ('discount_percentage' in base) { this.discountPercentage = base.discount_percentage }
     }
   }
   return __exports;
