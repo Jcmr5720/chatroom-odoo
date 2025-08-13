@@ -830,9 +830,38 @@ class AcruxChatConversation(models.Model):
                 use_limit = req_limit if req_limit > 0 else None
             except Exception:
                 use_limit = None
-    
+
         out = ProductProduct.search_read(domain, fields_search, order='name, list_price', limit=use_limit)
-    
+
+        # Mark products that have active discount promotions so the frontend
+        # can display the promotion badge even in the normal product search.
+        Reward = self.env['loyalty.reward']
+        promo_rewards = Reward.search([
+            ('reward_type', '=', 'discount'),
+            ('discount', '>', 0),
+            ('program_id.program_type', '=', 'promotion'),
+        ])
+        if promo_rewards:
+            promo_product_ids = set(promo_rewards.mapped('discount_product_ids').ids)
+            categ_ids = promo_rewards.mapped('discount_product_category_id.id')
+            if categ_ids:
+                promo_category_ids = set(
+                    self.env['product.category'].search([('id', 'child_of', categ_ids)]).ids
+                )
+            else:
+                promo_category_ids = set()
+            if not promo_product_ids and 'product_id' in Reward._fields:
+                promo_product_ids.update(promo_rewards.mapped('product_id').ids)
+            for prod in out:
+                if (
+                    prod['id'] in promo_product_ids
+                    or (
+                        prod.get('categ_id')
+                        and prod['categ_id'][0] in promo_category_ids
+                    )
+                ):
+                    prod['is_promotion'] = True
+
         categories = {
             prod['categ_id'][0]: prod['categ_id'][1]
             for prod in out
