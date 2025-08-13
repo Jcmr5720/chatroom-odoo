@@ -460,7 +460,9 @@ class AcruxChatConversation(models.Model):
         if not product_id:
             return False
         list_price = getattr(product_id, 'lst_price', product_id.list_price)
-        website_price = getattr(product_id, 'website_price', list_price)
+        website_price = getattr(product_id, 'website_price', None)
+        if website_price is None or website_price == list_price:
+            website_price = getattr(product_id, 'price', list_price)
         return website_price < list_price
 
     def get_product_caption(self, product_id):
