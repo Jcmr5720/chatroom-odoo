@@ -484,6 +484,35 @@ class AcruxChatConversation(models.Model):
                 break
         return 'yes' if has_discount else 'no'
 
+    def get_product_discount(self, product_id):
+        """Return the discount percentage for the given product."""
+        self.ensure_one()
+        Reward = self.env['loyalty.reward']
+        promo_rewards = Reward.search([
+            ('reward_type', '=', 'discount'),
+            ('discount', '>', 0),
+            ('program_id.program_type', '=', 'promotion'),
+        ])
+        max_discount = 0.0
+        for reward in promo_rewards:
+            discount = reward.discount
+            if product_id in reward.discount_product_ids:
+                max_discount = max(max_discount, discount)
+            elif reward.discount_product_category_id:
+                category_ids = self.env['product.category'].search([
+                    ('id', 'child_of', reward.discount_product_category_id.ids)
+                ]).ids
+                if product_id.categ_id.id in category_ids:
+                    max_discount = max(max_discount, discount)
+            elif (
+                not reward.discount_product_ids
+                and 'product_id' in Reward._fields
+                and reward.product_id
+                and reward.product_id == product_id
+            ):
+                max_discount = max(max_discount, discount)
+        return max_discount
+
     def get_product_caption(self, product_id):
         self.ensure_one()
         if not product_id:
@@ -500,6 +529,7 @@ class AcruxChatConversation(models.Model):
                 'conversation_id': self,
                 'product_url': self.get_product_url(product_id),
                 'sale_status': self.get_product_sale(product_id),
+                'sale_var': self.get_product_discount(product_id),
                 'text': ''
             }
             safe_eval(product_caption, locals_dict=local_dict, mode='exec', nocopy=True)
